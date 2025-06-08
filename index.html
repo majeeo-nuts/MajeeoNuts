@@ -1,229 +1,186 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MajeeoNuts - Premium Dry Fruits Online</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
-<body class="bg-gray-50 font-sans relative">
+<body class="bg-gray-50 font-sans">
 
-  <!-- Header -->
   <header class="bg-green-700 text-white p-6 text-center">
     <h1 class="text-3xl font-bold">MajeeoNuts</h1>
     <p class="mt-2 text-lg">World-class Premium Dry Fruits - Fresh & Healthy</p>
   </header>
 
-  <!-- Add to Cart Button fixed top right -->
-  <button id="cart-button" class="fixed top-5 right-5 bg-green-700 text-white px-4 py-2 rounded shadow-lg hover:bg-green-800 z-50 flex items-center gap-2">
-    🛒 Cart (<span id="cart-count">0</span>)
-  </button>
+  <div class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-  <!-- Cart Sidebar -->
-  <aside id="cart-sidebar" class="fixed top-0 right-0 w-96 max-w-full h-full bg-white shadow-lg p-6 transform translate-x-full transition-transform z-50 overflow-y-auto">
-    <h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
-    <div id="cart-items" class="space-y-4 min-h-[150px]">
-      <p class="text-gray-500">Your cart is empty.</p>
-    </div>
-    <div id="cart-summary" class="mt-6 border-t pt-4 hidden">
-      <p class="text-lg font-semibold">Total: ₹<span id="cart-total">0</span></p>
-      <button id="checkout-btn" class="mt-4 w-full bg-green-700 text-white py-3 rounded hover:bg-green-800">Checkout</button>
-    </div>
-    <button id="close-cart" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold">&times;</button>
-  </aside>
+    <!-- Products Grid - 3 cols wide -->
+    <main class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-  <!-- Main Products Grid -->
-  <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Example Product Card -->
+      <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
+        <h2 class="text-xl font-semibold mb-3">Premium Almonds (Badam)</h2>
+        <img src="https://images.unsplash.com/photo-1570466181122-7300f4f05543?auto=format&fit=crop&w=400&q=80" alt="Premium Almonds" class="h-48 w-full object-cover rounded mb-4" />
+        <p class="text-green-700 font-bold text-lg mb-2">₹1000/kg</p>
+        <p class="flex-grow text-gray-700 mb-4">High-quality California almonds, rich in antioxidants and healthy fats. Perfect for snacking and cooking.</p>
+        <label for="almond-qty" class="block font-medium mb-1">Select Quantity:</label>
+        <select id="almond-qty" name="quantity" class="mb-4 p-2 border rounded">
+          <option value="250">250 g</option>
+          <option value="500">500 g</option>
+          <option value="1000" selected>1 kg</option>
+        </select>
+        <button class="bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4 add-to-cart" data-name="Premium Almonds" data-price="1000">Add to Cart</button>
+      </article>
 
-    <!-- Almonds -->
-    <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
-      <h2 class="text-xl font-semibold mb-3">Premium Almonds (Badam)</h2>
-      <img src="https://images.unsplash.com/photo-1606813909297-6a325d70eae4?auto=format&fit=crop&w=400&q=80" alt="Premium Almonds" class="h-48 w-full object-cover rounded mb-4" />
-      <p class="text-green-700 font-bold text-lg mb-2">₹1000/kg</p>
-      <p class="flex-grow text-gray-700 mb-4">High-quality California almonds, rich in antioxidants and healthy fats. Perfect for snacking and cooking.</p>
-      
-      <label for="almond-qty" class="block font-medium mb-1">Select Quantity:</label>
-      <select id="almond-qty" name="quantity" class="mb-4 p-2 border rounded" data-product="almonds">
-        <option value="250">250 g</option>
-        <option value="500">500 g</option>
-        <option value="1000" selected>1 kg</option>
-      </select>
+      <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
+        <h2 class="text-xl font-semibold mb-3">Premium Cashews (Kaju)</h2>
+        <img src="https://images.unsplash.com/photo-1585297132209-2117b49f84d3?auto=format&fit=crop&w=400&q=80" alt="Premium Cashews" class="h-48 w-full object-cover rounded mb-4" />
+        <p class="text-green-700 font-bold text-lg mb-2">₹1200/kg</p>
+        <p class="flex-grow text-gray-700 mb-4">Fresh, creamy cashews packed with protein and essential minerals. Great for cooking and snacking.</p>
+        <label for="cashew-qty" class="block font-medium mb-1">Select Quantity:</label>
+        <select id="cashew-qty" name="quantity" class="mb-4 p-2 border rounded">
+          <option value="250">250 g</option>
+          <option value="500">500 g</option>
+          <option value="1000" selected>1 kg</option>
+        </select>
+        <button class="bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4 add-to-cart" data-name="Premium Cashews" data-price="1200">Add to Cart</button>
+      </article>
 
-      <button class="add-to-cart bg-green-600 text-white py-2 rounded hover:bg-green-700" data-product-id="almonds" data-product-name="Premium Almonds" data-product-price="1000">Add to Cart</button>
-    </article>
+    </main>
 
-    <!-- Cashews -->
-    <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
-      <h2 class="text-xl font-semibold mb-3">Premium Cashews (Kaju)</h2>
-      <img src="https://images.unsplash.com/photo-1617191514229-0d5e50ff3d39?auto=format&fit=crop&w=400&q=80" alt="Premium Cashews" class="h-48 w-full object-cover rounded mb-4" />
-      <p class="text-green-700 font-bold text-lg mb-2">₹1200/kg</p>
-      <p class="flex-grow text-gray-700 mb-4">Fresh, creamy cashews packed with protein and essential minerals. Great for cooking and snacking.</p>
+    <!-- Sidebar: Cart + Sections - 1 col wide -->
+    <aside class="bg-white p-6 rounded-lg shadow-md sticky top-6 h-max">
 
-      <label for="cashew-qty" class="block font-medium mb-1">Select Quantity:</label>
-      <select id="cashew-qty" name="quantity" class="mb-4 p-2 border rounded" data-product="cashews">
-        <option value="250">250 g</option>
-        <option value="500">500 g</option>
-        <option value="1000" selected>1 kg</option>
-      </select>
+      <!-- Cart Section -->
+      <section id="cart-section" class="mb-6">
+        <h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
+        <div id="cart-items" class="space-y-4 mb-4">
+          <p class="text-gray-500">Your cart is empty.</p>
+        </div>
+        <button id="checkout-btn" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 w-full" disabled>Checkout</button>
+      </section>
 
-      <button class="add-to-cart bg-green-600 text-white py-2 rounded hover:bg-green-700" data-product-id="cashews" data-product-name="Premium Cashews" data-product-price="1200">Add to Cart</button>
-    </article>
+      <!-- Home Section -->
+      <section id="home-section" class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">Home</h2>
+        <p>Welcome to MajeeoNuts! Enjoy our premium dry fruits sourced directly from trusted growers.</p>
+      </section>
 
-  </main>
+      <!-- About Us Section -->
+      <section id="about-section" class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">About Us</h2>
+        <p>MajeeoNuts is committed to providing fresh and healthy dry fruits with excellent customer service.</p>
+      </section>
 
-  <!-- Footer -->
+      <!-- Contact Us Section -->
+      <section id="contact-section" class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">Contact Us</h2>
+        <p>Email: <a href="mailto:maheshgawade7799@gmail.com" class="text-green-700 underline">maheshgawade7799@gmail.com</a></p>
+        <p>Phone: +91 9876543210</p>
+        <p>Address: Mumbai, India</p>
+      </section>
+
+    </aside>
+  </div>
+
   <footer class="bg-green-700 text-white text-center p-4 mt-10">
     <p>© 2025 MajeeoNuts. All rights reserved.</p>
   </footer>
 
-<script>
-  const cartButton = document.getElementById('cart-button');
-  const cartSidebar = document.getElementById('cart-sidebar');
-  const closeCartBtn = document.getElementById('close-cart');
-  const cartItemsContainer = document.getElementById('cart-items');
-  const cartCount = document.getElementById('cart-count');
-  const cartTotal = document.getElementById('cart-total');
-  const cartSummary = document.getElementById('cart-summary');
-  const checkoutBtn = document.getElementById('checkout-btn');
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    const cart = [];
+    const cartItemsDiv = document.getElementById('cart-items');
+    const checkoutBtn = document.getElementById('checkout-btn');
 
-  let cart = {};
-
-  // Show/hide cart sidebar
-  cartButton.addEventListener('click', () => {
-    cartSidebar.classList.toggle('translate-x-full');
-  });
-
-  closeCartBtn.addEventListener('click', () => {
-    cartSidebar.classList.add('translate-x-full');
-  });
-
-  // Add to Cart buttons
-  document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', () => {
-      const id = button.dataset.productId;
-      const name = button.dataset.productName;
-      const price = Number(button.dataset.productPrice);
-      const selectElem = document.querySelector(`select[data-product="${id}"]`);
-      const quantityGrams = Number(selectElem.value);
-
-      // Calculate price proportional to quantity (kg price * quantity/1000)
-      const unitPrice = (price * (quantityGrams / 1000));
-
-      if(cart[id]){
-        cart[id].quantity += 1;
-        cart[id].totalPrice = cart[id].quantity * unitPrice;
-      } else {
-        cart[id] = {
-          name,
-          unitPrice,
-          quantity: 1,
-          totalPrice: unitPrice
-        };
+    function renderCart() {
+      cartItemsDiv.innerHTML = '';
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
+        checkoutBtn.disabled = true;
+        return;
       }
-      updateCartUI();
-      if(cartSidebar.classList.contains('translate-x-full')){
-        cartSidebar.classList.remove('translate-x-full');
-      }
-    });
-  });
+      checkoutBtn.disabled = false;
+      cart.forEach((item, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'flex items-center justify-between border p-2 rounded';
 
-  function updateCartUI(){
-    const items = Object.entries(cart);
-    cartItemsContainer.innerHTML = '';
-    if(items.length === 0){
-      cartItemsContainer.innerHTML = `<p class="text-gray-500">Your cart is empty.</p>`;
-      cartSummary.classList.add('hidden');
-      cartCount.textContent = '0';
-      return;
+        itemDiv.innerHTML = `
+          <div>
+            <p class="font-semibold">${item.name}</p>
+            <p>₹${item.price} x ${item.quantity} = ₹${item.price * item.quantity}</p>
+            <input type="number" min="1" value="${item.quantity}" style="width:60px;" class="quantity-input border rounded p-1 mt-1" data-index="${index}" />
+          </div>
+          <button class="text-red-600 font-bold px-2" data-index="${index}">Remove</button>
+        `;
+        cartItemsDiv.appendChild(itemDiv);
+      });
+
+      // Add event listeners for quantity inputs and remove buttons
+      document.querySelectorAll('.quantity-input').forEach(input => {
+        input.addEventListener('change', e => {
+          const i = e.target.dataset.index;
+          let val = parseInt(e.target.value);
+          if (val < 1) val = 1;
+          cart[i].quantity = val;
+          renderCart();
+        });
+      });
+
+      document.querySelectorAll('#cart-items button').forEach(button => {
+        button.addEventListener('click', e => {
+          const i = e.target.dataset.index;
+          cart.splice(i, 1);
+          renderCart();
+        });
+      });
     }
-    cartSummary.classList.remove('hidden');
-    let total = 0;
 
-    items.forEach(([id, product]) => {
-      total += product.totalPrice;
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'border p-3 rounded flex flex-col gap-2';
+    // Add to cart buttons
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', () => {
+        const name = button.dataset.name;
+        const price = parseInt(button.dataset.price);
+        const parent = button.parentElement;
+        const select = parent.querySelector('select');
+        const quantity = parseInt(select.value);
 
-      itemDiv.innerHTML = `
-        <div class="flex justify-between items-center">
-          <h3 class="font-semibold">${product.name}</h3>
-          <button class="remove-item text-red-600 font-bold text-xl leading-none" data-id="${id}" title="Remove item">&times;</button>
-        </div>
-        <p>Price per unit: ₹${product.unitPrice.toFixed(2)}</p>
-        <div class="flex items-center gap-2">
-          <label for="qty-${id}">Quantity:</label>
-          <input type="number" id="qty-${id}" min="1" class="w-16 p-1 border rounded" value="${product.quantity}" data-id="${id}" />
-        </div>
-        <p class="font-semibold">Subtotal: ₹${product.totalPrice.toFixed(2)}</p>
-      `;
-
-      cartItemsContainer.appendChild(itemDiv);
-    });
-
-    cartTotal.textContent = total.toFixed(2);
-    cartCount.textContent = items.length;
-
-    // Attach remove item events
-    document.querySelectorAll('.remove-item').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const id = e.target.dataset.id;
-        delete cart[id];
-        updateCartUI();
+        const existingIndex = cart.findIndex(i => i.name === name);
+        if (existingIndex !== -1) {
+          cart[existingIndex].quantity += quantity;
+        } else {
+          cart.push({ name, price, quantity });
+        }
+        renderCart();
       });
     });
 
-    // Attach quantity change events
-    document.querySelectorAll('input[type="number"]').forEach(input => {
-      input.addEventListener('change', e => {
-        const id = e.target.dataset.id;
-        let val = parseInt(e.target.value);
-        if(isNaN(val) || val < 1) val = 1;
-        e.target.value = val;
-
-        // Update quantity and total price
-        cart[id].quantity = val;
-        cart[id].totalPrice = cart[id].unitPrice * val;
-        updateCartUI();
-      });
+    // Checkout button
+    checkoutBtn.addEventListener('click', () => {
+      const options = {
+        key: "rzp_live_LIqOpioBHDIhG4", 
+        amount: cart.reduce((sum, i) => sum + i.price * i.quantity, 0) * 100, 
+        currency: "INR",
+        name: "MajeeoNuts",
+        description: "Purchase of dry fruits",
+        handler: function (response){
+          alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+          cart.length = 0;
+          renderCart();
+        },
+        prefill: {
+          email: "maheshgawade7799@gmail.com"
+        },
+        theme: {
+          color: "#047857"
+        }
+      };
+      const rzp1 = new Razorpay(options);
+      rzp1.open();
     });
-  }
 
-  // Razorpay checkout
-  checkoutBtn.addEventListener('click', () => {
-    const totalAmount = Math.round(parseFloat(cartTotal.textContent) * 100); // in paise
-
-    if(totalAmount <= 0){
-      alert("Your cart is empty!");
-      return;
-    }
-
-    const options = {
-      key: "rzp_live_LIqOpioBHDIhG4",
-      amount: totalAmount,
-      currency: "INR",
-      name: "MajeeoNuts",
-      description: "Purchase of Premium Dry Fruits",
-      handler: function (response){
-        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-        cart = {};
-        updateCartUI();
-        cartSidebar.classList.add('translate-x-full');
-      },
-      prefill: {
-        email: "maheshgawade7799@gmail.com",
-      },
-      theme: {
-        color: "#047857"
-      }
-    };
-
-    const rzp = new Razorpay(options);
-    rzp.open();
-  });
-
-</script>
-
+    renderCart();
+  </script>
 </body>
 </html>
-
