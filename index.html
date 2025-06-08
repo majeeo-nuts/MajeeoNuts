@@ -1,209 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Majeeo Nuts - Premium Dry Fruits Online</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MajeeoNuts - Premium Dry Fruits</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
-<body class="bg-gray-50 font-sans">
-
+<body class="bg-gray-100">
   <header class="bg-green-700 text-white p-6 text-center">
-    <h1 class="text-3xl font-bold">Majeeo Nuts</h1>
-    <p class="mt-2 text-lg">World-class Premium Dry Fruits - Fresh & Healthy</p>
+    <h1 class="text-4xl font-bold">MajeeoNuts</h1>
+    <p class="text-lg">World-class Premium Dry Fruits - Fresh & Healthy</p>
   </header>
 
-  <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <nav class="bg-white shadow p-4 flex justify-around">
+    <a href="#home" class="text-green-700 font-semibold">Home</a>
+    <a href="#about" class="text-green-700 font-semibold">About Us</a>
+    <a href="#products" class="text-green-700 font-semibold">Products</a>
+    <a href="#contact" class="text-green-700 font-semibold">Contact</a>
+  </nav>
 
-    <!-- Product Card Template -->
-    <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
+  <main id="products" class="max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Product Template Example -->
+    <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
       <h2 class="text-xl font-semibold mb-3">Premium Almonds (Badam)</h2>
-      <img src="almonds.jpg" alt="Premium Almonds" class="h-48 w-full object-cover rounded mb-4" />
+      <img src="almonds.jpg" alt="Premium Almonds" class="h-48 w-full object-cover rounded mb-4">
       <p class="text-green-700 font-bold text-lg mb-2">₹1000/kg</p>
-      <p class="flex-grow text-gray-700 mb-4">High-quality California almonds, rich in antioxidants and healthy fats. Perfect for snacking and cooking.</p>
-      
-      <label for="almond-qty" class="block font-medium mb-1">Select Quantity:</label>
-      <select id="almond-qty" name="quantity" class="mb-4 p-2 border rounded">
-        <option value="250">250 g</option>
-        <option value="500">500 g</option>
-        <option value="1000" selected>1 kg</option>
-      </select>
+      <p class="text-gray-700 mb-4">High-quality California almonds, rich in antioxidants and healthy fats. Perfect for snacking and cooking.</p>
+      <button onclick="addToCart('Premium Almonds', 1000)" class="bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+    </div>
 
-      <button class="bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4">Add to Cart</button>
-
-      <div>
-        <h3 class="font-semibold mb-2">Benefits:</h3>
-        <ul class="list-disc list-inside text-gray-600">
-          <li>Rich in healthy fats</li>
-          <li>Good for heart health</li>
-          <li>Boosts energy</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- Cashews -->
-    <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
+    <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
       <h2 class="text-xl font-semibold mb-3">Premium Cashews (Kaju)</h2>
-      <img src="cashews.jpg" alt="Premium Cashews" class="h-48 w-full object-cover rounded mb-4" />
+      <img src="cashews.jpg" alt="Premium Cashews" class="h-48 w-full object-cover rounded mb-4">
       <p class="text-green-700 font-bold text-lg mb-2">₹1200/kg</p>
-      <p class="flex-grow text-gray-700 mb-4">Fresh, creamy cashews packed with protein and essential minerals. Great for cooking and snacking.</p>
-
-      <label for="cashew-qty" class="block font-medium mb-1">Select Quantity:</label>
-      <select id="cashew-qty" name="quantity" class="mb-4 p-2 border rounded">
-        <option value="250">250 g</option>
-        <option value="500">500 g</option>
-        <option value="1000" selected>1 kg</option>
-      </select>
-
-      <button class="bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4">Add to Cart</button>
-
-      <div>
-        <h3 class="font-semibold mb-2">Benefits:</h3>
-        <ul class="list-disc list-inside text-gray-600">
-          <li>High in protein and healthy fats</li>
-          <li>Supports heart and bone health</li>
-          <li>Improves brain function</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- Dates -->
-    <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
-      <h2 class="text-xl font-semibold mb-3">Premium Dates (Khajoor)</h2>
-      <img src="dates.jpg" alt="Premium Dates" class="h-48 w-full object-cover rounded mb-4" />
-      <p class="text-green-700 font-bold text-lg mb-2">₹1300/kg</p>
-      <p class="flex-grow text-gray-700 mb-4">Naturally sweet and chewy dates, loaded with fiber and essential nutrients.</p>
-
-      <label for="dates-qty" class="block font-medium mb-1">Select Quantity:</label>
-      <select id="dates-qty" name="quantity" class="mb-4 p-2 border rounded">
-        <option value="250">250 g</option>
-        <option value="500">500 g</option>
-        <option value="1000" selected>1 kg</option>
-      </select>
-
-      <button class="bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4">Add to Cart</button>
-
-      <div>
-        <h3 class="font-semibold mb-2">Benefits:</h3>
-        <ul class="list-disc list-inside text-gray-600">
-          <li>Excellent energy booster</li>
-          <li>Good source of fiber and antioxidants</li>
-          <li>Supports digestion</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- Figs -->
-    <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
-      <h2 class="text-xl font-semibold mb-3">Premium Figs (Anjeer)</h2>
-      <img src="figs.jpg" alt="Premium Figs" class="h-48 w-full object-cover rounded mb-4" />
-      <p class="text-green-700 font-bold text-lg mb-2">₹1500/kg</p>
-      <p class="flex-grow text-gray-700 mb-4">Delicious dried figs, rich in calcium, fiber and natural sweetness.</p>
-
-      <label for="figs-qty" class="block font-medium mb-1">Select Quantity:</label>
-      <select id="figs-qty" name="quantity" class="mb-4 p-2 border rounded">
-        <option value="250">250 g</option>
-        <option value="500">500 g</option>
-        <option value="1000" selected>1 kg</option>
-      </select>
-
-      <button class="bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4">Add to Cart</button>
-
-      <div>
-        <h3 class="font-semibold mb-2">Benefits:</h3>
-        <ul class="list-disc list-inside text-gray-600">
-          <li>Rich source of calcium</li>
-          <li>Supports bone health</li>
-          <li>Great for digestion</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- Raisins -->
-    <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
-      <h2 class="text-xl font-semibold mb-3">Premium Raisins (Kishmish)</h2>
-      <img src="raisins.jpg" alt="Premium Raisins" class="h-48 w-full object-cover rounded mb-4" />
-      <p class="text-green-700 font-bold text-lg mb-2">₹1400/kg</p>
-      <p class="flex-grow text-gray-700 mb-4">Sweet and juicy raisins packed with vitamins and antioxidants.</p>
-
-      <label for="raisins-qty" class="block font-medium mb-1">Select Quantity:</label>
-      <select id="raisins-qty" name="quantity" class="mb-4 p-2 border rounded">
-        <option value="250">250 g</option>
-        <option value="500">500 g</option>
-        <option value="1000" selected>1 kg</option>
-      </select>
-
-      <button class="bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4">Add to Cart</button>
-
-      <div>
-        <h3 class="font-semibold mb-2">Benefits:</h3>
-        <ul class="list-disc list-inside text-gray-600">
-          <li>Boosts iron levels</li>
-          <li>Good for skin health</li>
-          <li>Natural energy booster</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- Walnuts -->
-    <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
-      <h2 class="text-xl font-semibold mb-3">Premium Walnuts (Akhrot)</h2>
-      <img src="walnuts.jpg" alt="Premium Walnuts" class="h-48 w-full object-cover rounded mb-4" />
-      <p class="text-green-700 font-bold text-lg mb-2">₹1400/kg</p>
-      <p class="flex-grow text-gray-700 mb-4">Crunchy walnuts rich in omega-3 fatty acids for brain and heart health.</p>
-
-      <label for="walnuts-qty" class="block font-medium mb-1">Select Quantity:</label>
-      <select id="walnuts-qty" name="quantity" class="mb-4 p-2 border rounded">
-        <option value="250">250 g</option>
-        <option value="500">500 g</option>
-        <option value="1000" selected>1 kg</option>
-      </select>
-
-      <button class="bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4">Add to Cart</button>
-
-      <div>
-        <h3 class="font-semibold mb-2">Benefits:</h3>
-        <ul class="list-disc list-inside text-gray-600">
-          <li>Supports brain health</li>
-          <li>Rich in antioxidants</li>
-          <li>Improves heart function</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- Pistachios -->
-    <article class="bg-white p-6 rounded-lg shadow-md flex flex-col">
-      <h2 class="text-xl font-semibold mb-3">Premium Pistachios (Pista)</h2>
-      <img src="pistachios.jpg" alt="Premium Pistachios" class="h-48 w-full object-cover rounded mb-4" />
-      <p class="text-green-700 font-bold text-lg mb-2">₹1400/kg</p>
-      <p class="flex-grow text-gray-700 mb-4">Flavorful and crunchy pistachios loaded with protein and fiber.</p>
-
-      <label for="pistachios-qty" class="block font-medium mb-1">Select Quantity:</label>
-      <select id="pistachios-qty" name="quantity" class="mb-4 p-2 border rounded">
-        <option value="250">250 g</option>
-        <option value="500">500 g</option>
-        <option value="1000" selected>1 kg</option>
-      </select>
-
-      <button class="bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4">Add to Cart</button>
-
-      <div>
-        <h3 class="font-semibold mb-2">Benefits:</h3>
-        <ul class="list-disc list-inside text-gray-600">
-          <li>High in protein and fiber</li>
-          <li>Supports digestion</li>
-          <li>Good for weight management</li>
-        </ul>
-      </div>
-    </article>
-
+      <p class="text-gray-700 mb-4">Fresh, creamy cashews packed with protein and essential minerals. Great for cooking and snacking.</p>
+      <button onclick="addToCart('Premium Cashews', 1200)" class="bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+    </div>
   </main>
 
-  <footer class="bg-green-700 text-white text-center p-4 mt-10">
-    <p>© 2025 Majeeo Nuts. All rights reserved.</p>
+  <section id="cart" class="max-w-4xl mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-4">Your Cart</h2>
+    <ul id="cart-items" class="bg-white p-4 rounded shadow mb-4"></ul>
+    <button onclick="checkout()" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">Checkout</button>
+  </section>
+
+  <section id="about" class="bg-white py-12 text-center">
+    <h2 class="text-3xl font-bold mb-4">About Us</h2>
+    <p class="max-w-2xl mx-auto text-gray-700">MajeeoNuts is your destination for premium, high-quality dry fruits sourced and packed with care. We believe in delivering freshness and health in every bite.</p>
+  </section>
+
+  <section id="contact" class="bg-gray-200 py-12 text-center">
+    <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
+    <p class="text-gray-700">Email: <a href="mailto:maheshgawade7799@gmail.com" class="text-green-700 font-semibold">maheshgawade7799@gmail.com</a></p>
+  </section>
+
+  <footer class="bg-green-700 text-white text-center p-4">
+    <p>© 2025 MajeeoNuts. All rights reserved.</p>
   </footer>
 
+  <script>
+    const cart = [];
+
+    function addToCart(product, price) {
+      cart.push({ product, price });
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartList = document.getElementById('cart-items');
+      cartList.innerHTML = '';
+      cart.forEach((item, index) => {
+        cartList.innerHTML += `<li class="flex justify-between py-2">${item.product} - ₹${item.price}</li>`;
+      });
+    }
+
+    function checkout() {
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+      var options = {
+        key: "rzp_live_LIqOpioBHDIhG4",
+        amount: total * 100,
+        currency: "INR",
+        name: "MajeeoNuts",
+        description: "Purchase Dry Fruits",
+        image: "https://via.placeholder.com/150", // Replace with your logo if available
+        handler: function (response) {
+          alert('Payment Successful! Payment ID: ' + response.razorpay_payment_id);
+        },
+        prefill: {
+          name: "",
+          email: "",
+          contact: ""
+        },
+        theme: {
+          color: "#3399cc"
+        }
+      };
+
+      var rzp = new Razorpay(options);
+      rzp.open();
+    }
+  </script>
 </body>
 </html>
-
-
