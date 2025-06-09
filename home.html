@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MajeeoNuts - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .swiper {
+      width: 100%;
+      height: 300px;
+    }
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body class="bg-yellow-50">
+
+  <header class="bg-green-800 text-white p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">MajeeoNuts</h1>
+    <nav class="space-x-4">
+      <a href="home.html" class="hover:underline">Home</a>
+      <a href="about.html" class="hover:underline">About Us</a>
+      <a href="contact.html" class="hover:underline">Contact Us</a>
+    </nav>
+  </header>
+
+  <!-- Slider -->
+  <div class="swiper my-6">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="images/almonds.webp" alt="Almonds"></div>
+      <div class="swiper-slide"><img src="images/cashews.avif" alt="Cashews"></div>
+      <!-- Add more slides here -->
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <section class="p-6 text-center">
+    <h2 class="text-3xl font-bold mb-4">Welcome to MajeeoNuts</h2>
+    <p class="text-gray-700 max-w-xl mx-auto">We deliver premium dry fruits directly from our in-house facility to your doorstep. Freshness and quality guaranteed!</p>
+  </section>
+
+  <!-- Footer -->
+  <!-- (Copy footer from index.html or let me know if you want me to repeat it here) -->
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+      },
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+    });
+  </script>
+</body>
+</html>
