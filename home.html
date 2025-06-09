@@ -2,64 +2,193 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MajeeoNuts - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MajeeoNuts - Premium Dry Fruits</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Poppins', sans-serif; }
-    .swiper {
-      width: 100%;
-      height: 300px;
+    .animate-fade-in {
+      animation: fadeIn 1.5s ease-in-out;
     }
-    .swiper-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
   </style>
 </head>
-<body class="bg-yellow-50">
+<body class="bg-yellow-50 text-gray-900">
 
-  <header class="bg-green-800 text-white p-4 flex justify-between items-center">
+  <!-- Header -->
+  <header class="bg-green-800 text-white py-4 px-6 flex items-center justify-between shadow-md">
     <h1 class="text-2xl font-bold">MajeeoNuts</h1>
-    <nav class="space-x-4">
+    <nav class="space-x-6 text-sm">
       <a href="home.html" class="hover:underline">Home</a>
       <a href="about.html" class="hover:underline">About Us</a>
       <a href="contact.html" class="hover:underline">Contact Us</a>
     </nav>
   </header>
 
-  <!-- Slider -->
-  <div class="swiper my-6">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="images/almonds.webp" alt="Almonds"></div>
-      <div class="swiper-slide"><img src="images/cashews.avif" alt="Cashews"></div>
-      <!-- Add more slides here -->
-    </div>
-    <div class="swiper-pagination"></div>
-  </div>
-
-  <section class="p-6 text-center">
-    <h2 class="text-3xl font-bold mb-4">Welcome to MajeeoNuts</h2>
-    <p class="text-gray-700 max-w-xl mx-auto">We deliver premium dry fruits directly from our in-house facility to your doorstep. Freshness and quality guaranteed!</p>
+  <!-- Hero Image Slider -->
+  <section class="relative overflow-hidden max-w-7xl mx-auto mt-6 rounded-xl shadow-lg">
+    <img src="images/MajeeoNuts1.png" alt="MajeeoNuts Banner" class="w-full h-80 object-cover animate-fade-in">
   </section>
 
-  <!-- Footer -->
-  <!-- (Copy footer from index.html or let me know if you want me to repeat it here) -->
+  <!-- Main Section -->
+  <div class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <!-- Products -->
+    <main class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Almonds -->
+      <article class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-2">Premium Almonds (Badam)</h2>
+        <img src="images/almonds.webp" alt="Premium Almonds" class="h-48 w-full object-cover rounded mb-4" />
+        <p class="text-green-700 font-bold mb-2">₹1000/kg</p>
+        <p class="text-sm text-gray-700 mb-4">High-quality California almonds, rich in antioxidants and healthy fats.</p>
+        <select class="p-2 border rounded mb-4 quantity-select">
+          <option value="250">250g</option>
+          <option value="500">500g</option>
+          <option value="1000" selected>1kg</option>
+        </select>
+        <button class="add-to-cart w-full bg-green-600 text-white py-2 rounded" data-name="Almonds" data-price-per-kg="1000">Add to Cart</button>
+      </article>
+
+      <!-- Cashews -->
+      <article class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-2">Premium Cashews (Kaju)</h2>
+        <img src="images/cashews.avif" alt="Premium Cashews" class="h-48 w-full object-cover rounded mb-4" />
+        <p class="text-green-700 font-bold mb-2">₹1200/kg</p>
+        <p class="text-sm text-gray-700 mb-4">Fresh, creamy cashews packed with protein and essential minerals.</p>
+        <select class="p-2 border rounded mb-4 quantity-select">
+          <option value="250">250g</option>
+          <option value="500">500g</option>
+          <option value="1000" selected>1kg</option>
+        </select>
+        <button class="add-to-cart w-full bg-green-600 text-white py-2 rounded" data-name="Cashews" data-price-per-kg="1200">Add to Cart</button>
+      </article>
+    </main>
+
+    <!-- Cart -->
+    <aside class="bg-white rounded-xl shadow-md p-6 h-max sticky top-4">
+      <h2 class="text-2xl font-bold mb-4">Your Cart</h2>
+      <div id="cart-items" class="space-y-4 text-sm">
+        <p class="text-gray-500">Your cart is empty.</p>
+      </div>
+      <button id="checkout-btn" class="mt-4 w-full bg-green-700 text-white py-2 rounded" disabled>Checkout</button>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-10 px-6 mt-10 text-sm">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-lg font-bold mb-2">Why MajeeoNuts?</h3>
+        <p>PREMIUM QUALITY – 100% Quality Guarantee</p>
+        <p>SWIFT SHIPPING – Delivering across India</p>
+        <p>EASY RETURN – Refer return policy</p>
+        <p>24/7 SUPPORT – Support every time</p>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-2">Quick Links</h3>
+        <ul class="space-y-1">
+          <li><a href="about.html" class="hover:underline">About Us</a></li>
+          <li><a href="contact.html" class="hover:underline">Contact Us</a></li>
+          <li><a href="#" class="hover:underline">Bulk Ordering</a></li>
+          <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+          <li><a href="#" class="hover:underline">Return Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold mb-2">Contact Details</h3>
+        <p>NR TOWERS, 17th Cross, Sector 4, 19th Main Rd, HSR Layout, Bengaluru - 560102</p>
+        <p>Email: info@dryfruithouse.com</p>
+        <p>Phone: +91-7483600212</p>
+        <div class="flex space-x-4 mt-2">
+          <a href="#" aria-label="Facebook">Facebook</a>
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-6 border-t pt-4 border-green-600">
+      Copyright © 2025 Dry Fruit House. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- Razorpay Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
-    const swiper = new Swiper('.swiper', {
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-      },
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-      },
+    const cart = [];
+    const cartItemsDiv = document.getElementById("cart-items");
+    const checkoutBtn = document.getElementById("checkout-btn");
+
+    function renderCart() {
+      cartItemsDiv.innerHTML = "";
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      checkoutBtn.disabled = false;
+      cart.forEach((item, index) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "border p-3 rounded flex justify-between items-start";
+        itemDiv.innerHTML = `
+          <div>
+            <p class="font-semibold">${item.name}</p>
+            <p>${item.grams}g for ₹${item.price.toFixed(2)}</p>
+          </div>
+          <button class="text-red-600" onclick="removeItem(${index})">Remove</button>
+        `;
+        cartItemsDiv.appendChild(itemDiv);
+      });
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    document.querySelectorAll(".add-to-cart").forEach(button => {
+      button.addEventListener("click", () => {
+        const name = button.dataset.name;
+        const pricePerKg = parseInt(button.dataset.pricePerKg);
+        const grams = parseInt(button.parentElement.querySelector(".quantity-select").value);
+        const price = (pricePerKg / 1000) * grams;
+
+        cart.push({ name, grams, price });
+        renderCart();
+      });
     });
+
+    checkoutBtn.addEventListener("click", () => {
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const options = {
+        key: "rzp_live_LIqOpioBHDIhG4",
+        amount: Math.round(total * 100),
+        currency: "INR",
+        name: "MajeeoNuts",
+        description: "Premium Dry Fruits Purchase",
+        handler: function (response) {
+          alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+          cart.length = 0;
+          renderCart();
+        },
+        prefill: {
+          email: "maheshgawade7799@gmail.com"
+        },
+        theme: {
+          color: "#047857"
+        }
+      };
+      const rzp = new Razorpay(options);
+      rzp.open();
+    });
+
+    renderCart();
   </script>
 </body>
 </html>
