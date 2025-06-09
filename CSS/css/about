@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About MajeeoNuts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-yellow-50 text-gray-900">
+
+  <header class="bg-green-800 text-white py-6 text-center shadow-md">
+    <h1 class="text-4xl font-bold">About Us</h1>
+  </header>
+
+  <main class="max-w-3xl mx-auto p-6 text-center">
+    <p class="text-lg">MajeeoNuts brings you world-class dry fruits carefully selected for quality, taste, and purity. Our mission is to help you eat healthy with the goodness of nature.</p>
+  </main>
+
+  <!-- Same Footer as above -->
+  <!-- Copy the same <footer> from home.html -->
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About MajeeoNuts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-yellow-50 text-gray-900">
+
+  <header class="bg-green-800 text-white py-6 text-center shadow-md">
+    <h1 class="text-4xl font-bold">About Us</h1>
+  </header>
+
+  <main class="max-w-3xl mx-auto p-6 text-center">
+    <p class="text-lg">MajeeoNuts brings you world-class dry fruits carefully selected for quality, taste, and purity. Our mission is to help you eat healthy with the goodness of nature.</p>
+  </main>
+
+  <!-- Same Footer as above -->
+  <!-- Copy the same <footer> from home.html -->
+</body>
+</html>
