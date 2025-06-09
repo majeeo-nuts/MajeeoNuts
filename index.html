@@ -14,15 +14,34 @@
 </head>
 <body class="bg-yellow-50 text-gray-900">
 
-  <header class="bg-green-800 text-white py-6 text-center shadow-md">
-    <h1 class="text-4xl font-bold">MajeeoNuts</h1>
-    <p class="mt-1 text-lg">World-class Premium Dry Fruits - Fresh & Healthy</p>
+  <!-- Header with Navigation -->
+  <header class="bg-green-800 text-white py-6 px-4 shadow-md flex flex-col lg:flex-row justify-between items-center">
+    <div>
+      <h1 class="text-4xl font-bold">MajeeoNuts</h1>
+      <p class="text-lg">World-class Premium Dry Fruits - Fresh & Healthy</p>
+    </div>
+    <nav class="mt-4 lg:mt-0 space-x-4">
+      <a href="home.html" class="text-white hover:underline">Home</a>
+      <a href="about.html" class="text-white hover:underline">About Us</a>
+      <a href="contact.html" class="text-white hover:underline">Contact Us</a>
+    </nav>
   </header>
 
+  <!-- Image Slider -->
+  <div class="max-w-7xl mx-auto mt-6">
+    <div class="relative overflow-hidden rounded-xl shadow-lg">
+      <div class="w-full h-64">
+        <img src="images/slide1.jpg" class="w-full h-full object-cover animate-fadeIn" alt="Slide 1">
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
   <div class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
 
     <!-- Products -->
     <main class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Almonds Card -->
       <article class="bg-white rounded-xl shadow-md p-6">
         <h2 class="text-xl font-semibold mb-2">Premium Almonds (Badam)</h2>
         <img src="images/almonds.webp" alt="Premium Almonds" class="h-48 w-full object-cover rounded mb-4" />
@@ -36,6 +55,7 @@
         <button class="add-to-cart w-full bg-green-600 text-white py-2 rounded" data-name="Almonds" data-price-per-kg="1000">Add to Cart</button>
       </article>
 
+      <!-- Cashews Card -->
       <article class="bg-white rounded-xl shadow-md p-6">
         <h2 class="text-xl font-semibold mb-2">Premium Cashews (Kaju)</h2>
         <img src="images/cashews.avif" alt="Premium Cashews" class="h-48 w-full object-cover rounded mb-4" />
@@ -50,40 +70,50 @@
       </article>
     </main>
 
-    <!-- Cart & Info -->
+    <!-- Cart -->
     <aside class="bg-white rounded-xl shadow-md p-6 h-max sticky top-4">
       <h2 class="text-2xl font-bold mb-4">Your Cart</h2>
       <div id="cart-items" class="space-y-4 text-sm">
         <p class="text-gray-500">Your cart is empty.</p>
       </div>
       <button id="checkout-btn" class="mt-4 w-full bg-green-700 text-white py-2 rounded" disabled>Checkout</button>
-
-      <hr class="my-6">
-
-      <div>
-        <h3 class="text-lg font-semibold mb-2">Home</h3>
-        <p class="text-sm text-gray-600">Welcome to MajeeoNuts! We deliver premium dry fruits directly from our in-house facility to your doorstep.</p>
-      </div>
-
-      <div class="mt-4">
-        <h3 class="text-lg font-semibold mb-2">About Us</h3>
-        <p class="text-sm text-gray-600">MajeeoNuts ensures purity, taste, and nutrition. With our top-quality dry fruits, we help you lead a healthy life.</p>
-      </div>
-
-      <div class="mt-4">
-        <h3 class="text-lg font-semibold mb-2">Contact Us</h3>
-        <p class="text-sm">Email: <a href="mailto:maheshgawade7799@gmail.com" class="text-green-700">maheshgawade7799@gmail.com</a></p>
-        <p class="text-sm">Phone: +91 9876543210</p>
-        <p class="text-sm">Mumbai, India</p>
-      </div>
     </aside>
-
   </div>
 
-  <footer class="text-center text-white bg-green-800 py-4 mt-10">
-    © 2025 MajeeoNuts. All rights reserved.
+  <!-- Footer -->
+  <footer class="bg-green-900 text-white mt-10">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <h3 class="font-bold text-lg mb-2">PREMIUM QUALITY</h3>
+        <p>100% Quality Guarantee</p>
+        <h3 class="font-bold text-lg mt-4 mb-2">SWIFT SHIPPING</h3>
+        <p>Delivering across India</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-2">EASY RETURN</h3>
+        <p>Refer return policy</p>
+        <h3 class="font-bold text-lg mt-4 mb-2">24/7 SUPPORT</h3>
+        <p>Support every time</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-2">Contact Details</h3>
+        <p>NR TOWERS, 17th Cross, Sector 4, 19th Main Rd, HSR Layout, Bengaluru - 560102</p>
+        <p>info@dryfruithouse.com</p>
+        <p>+91-7483600212</p>
+      </div>
+    </div>
+    <div class="bg-green-800 py-4 text-center">
+      <p>&copy; 2025 Dry Fruit House. All Rights Reserved.</p>
+      <div class="flex justify-center mt-2 space-x-4">
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
   </footer>
 
+  <!-- Razorpay Script -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     const cart = [];
