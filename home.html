@@ -32,7 +32,7 @@
 <section class="max-w-7xl mx-auto mt-6 px-4 flex flex-col md:flex-row gap-6">
   <!-- Video -->
   <div class="w-full md:w-3/4 rounded-xl overflow-hidden shadow-lg">
-    <video class="w-full h-[300px] object-cover rounded-xl" controls>
+    <video class="w-full aspect-square object-cover rounded-xl" controls>
       <source src="media/majeeoNuts_dryfruits_homepage_video.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -50,7 +50,7 @@
 <!-- Product Grid -->
 <div class="max-w-7xl mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">
 
-  <!-- Template product format -->
+  <!-- JS-generated product list -->
   <script>
     const products = [
       { name: "Premium Almonds (Badam)", img: "images/almonds.webp", price: 1000, desc: "High-quality California almonds, rich in antioxidants and healthy fats." },
@@ -59,7 +59,7 @@
       { name: "Pista (Pistachios)", img: "images/Pista.jpg", price: 1400, desc: "Crunchy, lightly salted pistachios packed with flavor and nutrition." },
       { name: "Walnut (Akhrot)", img: "images/Walnut.png", price: 1300, desc: "Brain-boosting walnuts rich in Omega-3 and antioxidants." },
       { name: "Raisins (Kishmish)", img: "images/Raisins.png", price: 600, desc: "Sweet, sun-dried raisins full of natural sugars and fiber." },
-      { name: "Mix Dry Fruits", img: "images/MixDryFruits.jpg", price: 1500, desc: "A perfect mix of almonds, cashews, pista, raisins and figs." },
+      { name: "Mix Dry Fruits", img: "images/Mix_Dryfruits.jpg", price: 1500, desc: "A perfect mix of almonds, cashews, pista, raisins and figs." },
       { name: "Anjeer (Figs)", img: "images/Anjeer.png", price: 900, desc: "Naturally sweet sun-dried figs, rich in fiber and iron." }
     ];
 
@@ -69,7 +69,7 @@
         const html = `
         <article class="bg-white rounded-lg shadow p-3">
           <h2 class="font-semibold mb-1 text-base">${p.name}</h2>
-          <img src="${p.img}" alt="${p.name}" class="h-28 w-full object-cover rounded mb-1" />
+          <img src="${p.img}" alt="${p.name}" class="w-full aspect-square object-cover rounded mb-1" />
           <p class="text-red-700 font-bold mb-1">₹${p.price}/kg</p>
           <p class="text-gray-700 mb-1">${p.desc}</p>
           <select class="p-1 border rounded mb-2 quantity-select text-sm">
