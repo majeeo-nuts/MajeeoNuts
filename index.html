@@ -29,14 +29,17 @@
     </nav>
   </header>
 
-  <!-- Search Bar -->
+<!-- Search Bar -->
 <div class="bg-yellow-100 py-4 px-6 flex justify-center">
   <input type="text" id="searchInput" placeholder="Search products..." class="w-full max-w-md px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600" />
 </div>
 
-  <!-- Hero Image Slider -->
+  <!-- Hero Video Slider -->
   <section class="relative overflow-hidden max-w-7xl mx-auto mt-6 rounded-xl shadow-lg">
-    <img src="images/MajeeoNuts1.png" alt="MajeeoNuts Banner" class="w-full h-80 object-cover animate-fade-in">
+    <video controls class="w-full h-80 object-cover animate-fade-in">
+      <source src="images/majeeonuts_dryfruits_homepage_video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </section>
 
   <!-- Main Section -->
@@ -111,7 +114,7 @@
         <ul class="text-gray-600 space-y-1">
           <li><a href="account.html" class="hover:text-blue-600">My Account</a></li>
           <li><a href="privacy.html" class="hover:text-blue-600">Privacy Policy</a></li>
-          <li><a href="returns.html" class="hover:text-blue-600">Return Policy</a></li>
+          <li><a href="return.html" class="hover:text-blue-600">Return Policy</a></li>
           <li><a href="terms.html" class="hover:text-blue-600">Terms & Conditions</a></li>
         </ul>
       </div>
@@ -139,81 +142,80 @@
   </div>
 </footer>
 
-  <!-- Razorpay Script -->
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script>
-    const cart = [];
-    const cartItemsDiv = document.getElementById("cart-items");
-    const checkoutBtn = document.getElementById("checkout-btn");
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  const cart = [];
+  const cartItemsDiv = document.getElementById("cart-items");
+  const checkoutBtn = document.getElementById("checkout-btn");
 
-    function renderCart() {
-      cartItemsDiv.innerHTML = "";
-      if (cart.length === 0) {
-        cartItemsDiv.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
-        checkoutBtn.disabled = true;
-        return;
-      }
-
-      checkoutBtn.disabled = false;
-      cart.forEach((item, index) => {
-        const itemDiv = document.createElement("div");
-        itemDiv.className = "border p-3 rounded flex justify-between items-start";
-        itemDiv.innerHTML = `
-          <div>
-            <p class="font-semibold">${item.name}</p>
-            <p>${item.grams}g for ₹${item.price.toFixed(2)}</p>
-          </div>
-          <button class="text-red-600" onclick="removeItem(${index})">Remove</button>
-        `;
-        cartItemsDiv.appendChild(itemDiv);
-      });
+  function renderCart() {
+    cartItemsDiv.innerHTML = "";
+    if (cart.length === 0) {
+      cartItemsDiv.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
+      checkoutBtn.disabled = true;
+      return;
     }
 
-    function removeItem(index) {
-      cart.splice(index, 1);
-      renderCart();
-    }
-
-    document.querySelectorAll(".add-to-cart").forEach(button => {
-      button.addEventListener("click", () => {
-        const name = button.dataset.name;
-        const pricePerKg = parseInt(button.dataset.pricePerKg);
-        const grams = parseInt(button.parentElement.querySelector(".quantity-select").value);
-        const price = (pricePerKg / 1000) * grams;
-
-        cart.push({ name, grams, price });
-        renderCart();
-      });
+    checkoutBtn.disabled = false;
+    cart.forEach((item, index) => {
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "border p-3 rounded flex justify-between items-start";
+      itemDiv.innerHTML = `
+        <div>
+          <p class="font-semibold">${item.name}</p>
+          <p>${item.grams}g for ₹${item.price.toFixed(2)}</p>
+        </div>
+        <button class="text-red-600" onclick="removeItem(${index})">Remove</button>
+      `;
+      cartItemsDiv.appendChild(itemDiv);
     });
+  }
 
-    checkoutBtn.addEventListener("click", () => {
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      const options = {
-        key: "rzp_live_LIqOpioBHDIhG4",
-        amount: Math.round(total * 100),
-        currency: "INR",
-        name: "MajeeoNuts",
-        description: "Premium Dry Fruits Purchase",
-        handler: function (response) {
-          alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-          cart.length = 0;
-          renderCart();
-        },
-        prefill: {
-          email: "maheshgawade7799@gmail.com"
-        },
-        theme: {
-          color: "#047857"
-        }
-      };
-      const rzp = new Razorpay(options);
-      rzp.open();
-    });
-
+  function removeItem(index) {
+    cart.splice(index, 1);
     renderCart();
-  </script>
-  
-  <script>
+  }
+
+  document.querySelectorAll(".add-to-cart").forEach(button => {
+    button.addEventListener("click", () => {
+      const name = button.dataset.name;
+      const pricePerKg = parseInt(button.dataset.pricePerKg);
+      const grams = parseInt(button.parentElement.querySelector(".quantity-select").value);
+      const price = (pricePerKg / 1000) * grams;
+
+      cart.push({ name, grams, price });
+      renderCart();
+    });
+  });
+
+  checkoutBtn.addEventListener("click", () => {
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    const options = {
+      key: "rzp_live_LIqOpioBHDIhG4",
+      amount: Math.round(total * 100),
+      currency: "INR",
+      name: "MajeeoNuts",
+      description: "Premium Dry Fruits Purchase",
+      handler: function (response) {
+        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+        cart.length = 0;
+        renderCart();
+      },
+      prefill: {
+        email: "maheshgawade7799@gmail.com"
+      },
+      theme: {
+        color: "#047857"
+      }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
+  });
+
+  renderCart();
+</script>
+
+<script>
   const searchInput = document.getElementById("searchInput");
   const products = document.querySelectorAll("main article");
 
