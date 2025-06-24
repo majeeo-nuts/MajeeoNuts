@@ -20,14 +20,14 @@
 <body class="bg-yellow-50 text-gray-900">
 
 <!-- Header with search bar inline -->
-<header class="bg-green-800 text-white py-4 px-6 flex items-center justify-between shadow-md">
+<header class="bg-red-800 text-white py-4 px-6 flex items-center justify-between shadow-md">
   <h1 class="text-2xl font-bold">MajeeoNuts</h1>
   <nav class="space-x-6 text-sm">
     <a href="home.html" class="hover:underline">Home</a>
     <a href="about.html" class="hover:underline">About Us</a>
     <a href="contact.html" class="hover:underline">Contact Us</a>
   </nav>
-  <input type="text" id="searchInput" placeholder="Search products..." class="ml-4 px-2 py-1 rounded border text-gray-900 border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 text-sm" />
+  <input type="text" id="searchInput" placeholder="Search products..." class="ml-4 px-2 py-1 rounded border text-gray-900 border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-600 text-sm" />
 </header>
 
 <!-- Hero Section with Video and Cart -->
@@ -45,7 +45,7 @@
     <div id="cart-items" class="space-y-4 text-sm">
       <p class="text-gray-500">Your cart is empty.</p>
     </div>
-    <button id="checkout-btn" class="mt-4 w-full bg-green-700 text-white py-2 rounded" disabled>Checkout</button>
+    <button id="checkout-btn" class="mt-4 w-full bg-red-700 text-white py-2 rounded" disabled>Checkout</button>
   </aside>
 </section>
 
@@ -55,31 +55,31 @@
   <article class="bg-white rounded-xl shadow-md p-4">
     <h2 class="text-md font-semibold mb-2">Premium Almonds (Badam)</h2>
     <img src="images/almonds.webp" alt="Premium Almonds" class="h-32 w-full object-cover rounded mb-2" />
-    <p class="text-green-700 font-bold mb-2">₹1000/kg</p>
+    <p class="text-red-700 font-bold mb-2">₹1000/kg</p>
     <p class="text-sm text-gray-700 mb-2">High-quality California almonds, rich in antioxidants and healthy fats.</p>
     <select class="p-2 border rounded mb-2 quantity-select">
       <option value="250">250g</option>
       <option value="500">500g</option>
       <option value="1000" selected>1kg</option>
     </select>
-    <button class="add-to-cart w-full bg-green-600 text-white py-2 rounded" data-name="Almonds" data-price-per-kg="1000">Add to Cart</button>
+    <button class="add-to-cart w-full bg-red-600 text-white py-2 rounded" data-name="Almonds" data-price-per-kg="1000">Add to Cart</button>
   </article>
   <!-- Product 2 -->
   <article class="bg-white rounded-xl shadow-md p-4">
     <h2 class="text-md font-semibold mb-2">Premium Cashews (Kaju)</h2>
     <img src="images/cashews.avif" alt="Premium Cashews" class="h-32 w-full object-cover rounded mb-2" />
-    <p class="text-green-700 font-bold mb-2">₹1200/kg</p>
+    <p class="text-red-700 font-bold mb-2">₹1200/kg</p>
     <p class="text-sm text-gray-700 mb-2">Fresh, creamy cashews packed with protein and essential minerals.</p>
     <select class="p-2 border rounded mb-2 quantity-select">
       <option value="250">250g</option>
       <option value="500">500g</option>
       <option value="1000" selected>1kg</option>
     </select>
-    <button class="add-to-cart w-full bg-green-600 text-white py-2 rounded" data-name="Cashews" data-price-per-kg="1200">Add to Cart</button>
+    <button class="add-to-cart w-full bg-red-600 text-white py-2 rounded" data-name="Cashews" data-price-per-kg="1200">Add to Cart</button>
   </article>
 </div>
 
-<!-- Footer (same as before) -->
+<!-- Footer -->
 <footer class="bg-white border-t mt-16">
   <div class="bg-gray-100 py-8 px-4 sm:px-6 lg:px-16">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -179,7 +179,7 @@
         email: "maheshgawade7799@gmail.com"
       },
       theme: {
-        color: "#047857"
+        color: "#b91c1c" // red-700
       }
     };
     const rzp = new Razorpay(options);
