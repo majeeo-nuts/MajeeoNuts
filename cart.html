@@ -11,73 +11,95 @@
 </head>
 <body class="bg-yellow-50 text-gray-900 text-sm">
 
+  <!-- Header -->
   <header class="bg-red-800 text-white py-3 px-6 flex justify-between items-center">
     <h1 class="text-xl font-bold">MajeeoNuts</h1>
     <a href="home.html" class="text-sm underline hover:text-yellow-300">← Back to Home</a>
   </header>
 
+  <!-- Cart Section -->
   <main class="max-w-3xl mx-auto mt-6 p-4 bg-white rounded shadow">
     <h2 class="text-xl font-bold mb-4">Your Cart</h2>
     <div id="cart-items" class="space-y-4"></div>
-    <button id="checkout-btn" class="mt-6 w-full bg-red-600 text-white py-2 rounded text-sm" disabled>Proceed to Payment</button>
+
+    <!-- Total Summary -->
+    <div id="cart-summary" class="mt-6 text-right hidden">
+      <p class="text-sm text-gray-600 mb-2" id="total-items"></p>
+      <p class="text-lg font-semibold" id="total-price"></p>
+      <button id="checkout-btn" class="mt-4 w-full bg-red-600 text-white py-2 rounded text-sm">Proceed to Payment</button>
+    </div>
   </main>
 
+  <!-- Razorpay Script -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
-    const cart = JSON.parse(localStorage.getItem("majeeo-cart")) || [];
+    const cartKey = "cart";
+    const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+
     const cartDiv = document.getElementById("cart-items");
+    const summaryDiv = document.getElementById("cart-summary");
+    const totalItemsText = document.getElementById("total-items");
+    const totalPriceText = document.getElementById("total-price");
     const checkoutBtn = document.getElementById("checkout-btn");
 
     function renderCart() {
       cartDiv.innerHTML = "";
       if (cart.length === 0) {
         cartDiv.innerHTML = "<p class='text-gray-500'>Your cart is empty.</p>";
-        checkoutBtn.disabled = true;
+        summaryDiv.classList.add("hidden");
         return;
       }
 
-      let total = 0;
+      let totalPrice = 0;
+      let totalQuantity = 0;
+
       cart.forEach((item, index) => {
-        const itemTotal = (item.price * item.quantity).toFixed(2);
-        total += parseFloat(itemTotal);
+        totalPrice += item.price;
+        totalQuantity += 1;
 
         const div = document.createElement("div");
-        div.className = "flex justify-between items-center border p-2 rounded";
+        div.className = "flex justify-between items-center border p-3 rounded";
         div.innerHTML = `
           <div>
             <p class="font-semibold">${item.name}</p>
-            <p>${item.quantity} x ₹${item.price} = ₹${itemTotal}</p>
+            <p class="text-gray-700">${item.grams}g - ₹${item.price.toFixed(2)}</p>
           </div>
           <button onclick="removeItem(${index})" class="text-red-500 text-sm">Remove</button>
         `;
         cartDiv.appendChild(div);
       });
 
-      checkoutBtn.disabled = false;
-      checkoutBtn.textContent = `Pay ₹${total}`;
+      // Show total summary
+      summaryDiv.classList.remove("hidden");
+      totalItemsText.textContent = `Total Items: ${totalQuantity}`;
+      totalPriceText.textContent = `Total Amount: ₹${totalPrice.toFixed(2)}`;
     }
 
     function removeItem(index) {
       cart.splice(index, 1);
-      localStorage.setItem("majeeo-cart", JSON.stringify(cart));
+      localStorage.setItem(cartKey, JSON.stringify(cart));
       renderCart();
     }
 
     checkoutBtn.addEventListener("click", () => {
-      const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
       const options = {
         key: "rzp_live_LIqOpioBHDIhG4",
         amount: Math.round(totalAmount * 100),
         currency: "INR",
         name: "MajeeoNuts",
-        description: "Dry Fruits Purchase",
+        description: "Premium Dry Fruits Purchase",
         handler: function (response) {
-          alert("Payment successful! ID: " + response.razorpay_payment_id);
-          localStorage.removeItem("majeeo-cart");
-          renderCart();
+          alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+          localStorage.removeItem(cartKey);
+          location.reload(); // Clear and refresh cart page
         },
-        prefill: { email: "maheshgawade7799@gmail.com" },
-        theme: { color: "#b91c1c" }
+        prefill: {
+          email: "maheshgawade7799@gmail.com"
+        },
+        theme: {
+          color: "#b91c1c"
+        }
       };
       new Razorpay(options).open();
     });
@@ -86,4 +108,5 @@
   </script>
 </body>
 </html>
+
 
