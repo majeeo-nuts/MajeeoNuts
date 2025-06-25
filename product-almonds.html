@@ -3,87 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Premium Almonds - MajeeoNuts</title>
+  <title>Premium Almonds (Badam) - MajeeoNuts</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
-    body { font-family: 'Poppins', sans-serif; }
-    .tab-active { border-bottom: 2px solid #991b1b; color: #991b1b; }
+    body { font-family: 'Poppins', sans-serif; background-color: #fffef8; }
+    .cart-item { @apply flex justify-between items-center border p-2 rounded text-xs bg-white shadow-sm; }
+    .cart-item p { @apply mb-0; }
+    .nav-center { position: absolute; left: 50%; transform: translateX(-50%); }
   </style>
 </head>
-<body class="bg-yellow-50 text-gray-800 text-sm">
+<body class="text-gray-800 text-sm">
 
 <!-- Header -->
-<header class="bg-red-800 text-white py-3 px-6 flex flex-col md:flex-row items-center justify-between shadow">
-  <h1 class="text-xl font-bold mb-2 md:mb-0">MajeeoNuts</h1>
-  <nav class="space-x-6 text-sm text-center">
+<header class="bg-red-800 text-white py-3 px-6 relative shadow flex items-center justify-between">
+  <h1 class="text-xl font-bold">MajeeoNuts</h1>
+  <nav class="space-x-4 text-sm nav-center">
     <a href="home.html" class="hover:underline">Home</a>
     <a href="about.html" class="hover:underline">About Us</a>
     <a href="contact.html" class="hover:underline">Contact Us</a>
   </nav>
+  <a href="cart.html" class="text-sm bg-white text-red-700 px-3 py-1 rounded-full font-semibold hover:bg-yellow-100">🛒 Go to Cart</a>
 </header>
 
-<a href="cart.html" class="fixed top-4 right-4 bg-red-700 text-white px-3 py-2 rounded-full shadow-lg hover:bg-red-600 z-50 text-sm">
-  🛒 Go to Cart
-</a>
-
 <!-- Product Section -->
-<section class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-4 mt-6">
-  <!-- Image -->
-  <div class="flex justify-center">
-    <img src="images/almonds.webp" alt="Premium Almonds" class="rounded shadow object-cover" style="width:300px; height:300px;">
-  </div>
-
+<section class="max-w-5xl mx-auto p-4 mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
   <!-- Product Info -->
-  <div>
-    <h2 class="text-2xl font-semibold mb-2">Premium Jumbo Almond</h2>
-    <div class="flex items-center mb-3">
-      <select id="quantity" class="p-2 border rounded text-sm">
-        <option value="100">100g</option>
-        <option value="250">250g</option>
-        <option value="500">500g</option>
-        <option value="1000" selected>1kg</option>
-      </select>
-      <p class="text-red-700 font-bold text-xl ml-4">₹<span id="price">1000</span></p>
-    </div>
+  <div class="text-center">
+    <img src="images/almonds.webp" alt="Premium Almonds" class="rounded shadow mb-4 mx-auto w-52 h-52 object-cover" />
+    <h2 class="text-lg font-bold mb-2">Premium Almonds (Badam)</h2>
+    <select id="quantity" class="p-1 border rounded text-sm mb-2">
+      <option value="250">250g - ₹250</option>
+      <option value="500">500g - ₹500</option>
+      <option value="1000" selected>1kg - ₹1000</option>
+    </select>
+    <p class="text-red-700 font-bold text-lg mb-1">₹<span id="price">1000</span></p>
 
-    <p class="mb-4 text-sm text-gray-700"><strong>Swift Delivery</strong> – Shipping across India right to your doorstep!</p>
-
-    <div class="grid grid-cols-4 gap-4 text-center mb-4 text-xs">
-      <div><img src="icons/heart.png" class="w-6 h-6 mx-auto"/><p>Healthy Heart</p></div>
-      <div><img src="icons/nutrition.png" class="w-6 h-6 mx-auto"/><p>High Nutrition</p></div>
-      <div><img src="icons/glutenfree.png" class="w-6 h-6 mx-auto"/><p>Gluten Free</p></div>
-      <div><img src="icons/cholesterol.png" class="w-6 h-6 mx-auto"/><p>Cholesterol Free</p></div>
-    </div>
-
-    <div class="flex gap-4 mb-2">
+    <div class="flex flex-col sm:flex-row gap-4 mt-3">
       <button onclick="addToCart()" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800">Add to Cart</button>
-      <button onclick="buyNow()" class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800">Buy Now</button>
+      <button onclick="buyNow()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Buy Now</button>
     </div>
 
-    <div id="inline-cart-items" class="space-y-2 mb-4 text-sm"></div>
+    <div id="cart-items" class="mt-5 space-y-2"></div>
+  </div>
 
-    <p id="added-count" class="text-green-700 mb-2"></p>
-    <p class="text-gray-600 text-xs">SKU: <strong>DRYF101</strong></p>
-  </div>
-</section>
+  <!-- Details & Description -->
+  <div class="text-sm space-y-3">
+    <p><strong>Swift Delivery:</strong> Shipping across India to deliver goodness to your doorstep!</p>
+    <div class="flex gap-3 text-xs">
+      <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Healthy Heart</span>
+      <span class="bg-green-100 text-green-800 px-2 py-1 rounded">High Nutrition</span>
+      <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Gluten Free</span>
+      <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Cholesterol Free</span>
+    </div>
 
-<!-- Description & Benefits Tabs -->
-<section class="max-w-6xl mx-auto px-4">
-  <div class="flex gap-6 border-b text-sm font-medium">
-    <button id="tab-desc" class="pb-2 tab-active" onclick="showTab('desc')">Description</button>
-    <button id="tab-benefits" class="pb-2" onclick="showTab('benefits')">Benefits</button>
-  </div>
-  <div id="content-desc" class="mt-4 text-gray-700">
-    <p>Jumbo Almonds are rich in qualities and benefits, help reduce hunger, and are used for oil & milk. Long and sweet!</p>
-  </div>
-  <div id="content-benefits" class="mt-4 text-gray-700 hidden">
-    <ul class="list-disc ml-5 space-y-2">
-      <li>Packed with Vitamin E & healthy fats for skin & hair.</li>
-      <li>Supports heart health & lowers bad cholesterol.</li>
-      <li>Boosts brain function and energy.</li>
-      <li>High satiety helps with weight management.</li>
-    </ul>
+    <hr class="my-4"/>
+    <h3 class="font-semibold text-base">Description</h3>
+    <p class="text-gray-700">Our Premium Almonds are handpicked, jumbo-sized, and packed with nutrients. Perfect for snacking, garnishing, or gifting.</p>
+
+    <h3 class="font-semibold text-base mt-4">Benefits</h3>
+    <p class="text-gray-700">Rich in vitamin E, magnesium, and antioxidants. Supports heart health, weight management, and glowing skin.</p>
   </div>
 </section>
 
@@ -93,28 +72,28 @@
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
       <div>
         <img src="/logo.png" alt="Majeeo Nuts Logo" class="w-20 mb-2">
-        <p class="text-gray-600">Majeeo Nuts brings you carefully selected dry fruits from India and across the world.</p>
+        <p class="text-gray-600">Majeeo Nuts brings you premium dry fruits from across India and the world.</p>
       </div>
       <div>
-        <h4 class="font-semibold mb-1">Quick Links</h4>
+        <h4 class="font-semibold text-gray-800 mb-1">Quick Links</h4>
         <ul class="text-gray-600 space-y-1">
-          <li><a href="about.html" class="hover:underline">About Us</a></li>
-          <li><a href="contact.html" class="hover:underline">Contact Us</a></li>
-          <li><a href="bulk-order.html" class="hover:underline">Bulk Ordering</a></li>
-          <li><a href="shop.html" class="hover:underline">Shopping</a></li>
+          <li><a href="about.html" class="hover:text-red-600">About Us</a></li>
+          <li><a href="contact.html" class="hover:text-red-600">Contact Us</a></li>
+          <li><a href="bulk-order.html" class="hover:text-red-600">Bulk Ordering</a></li>
+          <li><a href="shop.html" class="hover:text-red-600">Shop</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-semibold mb-1">Account Info</h4>
+        <h4 class="font-semibold text-gray-800 mb-1">Account Info</h4>
         <ul class="text-gray-600 space-y-1">
-          <li><a href="account.html" class="hover:underline">My Account</a></li>
-          <li><a href="privacy.html" class="hover:underline">Privacy Policy</a></li>
-          <li><a href="return.html" class="hover:underline">Return Policy</a></li>
-          <li><a href="terms.html" class="hover:underline">Terms & Conditions</a></li>
+          <li><a href="account.html" class="hover:text-red-600">My Account</a></li>
+          <li><a href="privacy.html" class="hover:text-red-600">Privacy Policy</a></li>
+          <li><a href="return.html" class="hover:text-red-600">Return Policy</a></li>
+          <li><a href="terms.html" class="hover:text-red-600">Terms & Conditions</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-semibold mb-1">Contact Details</h4>
+        <h4 class="font-semibold text-gray-800 mb-1">Contact</h4>
         <ul class="text-gray-600 space-y-1">
           <li>📍 Mumbai, India</li>
           <li>✉️ maheshgawade7799@gmail.com</li>
@@ -126,76 +105,84 @@
 </footer>
 
 <script>
-  let cart = JSON.parse(localStorage.getItem('majeeoCart')) || [];
+  const quantitySelect = document.getElementById("quantity");
+  const priceDisplay = document.getElementById("price");
+  const cartItemsDiv = document.getElementById("cart-items");
+  let cart = JSON.parse(localStorage.getItem("majeeo-cart")) || [];
 
-  function updateInlineCart() {
-    const container = document.getElementById('inline-cart-items');
-    container.innerHTML = '';
+  function updatePriceDisplay() {
+    priceDisplay.innerText = quantitySelect.value;
+  }
+
+  function renderMiniCart() {
+    cartItemsDiv.innerHTML = "";
     if (cart.length === 0) {
-      container.innerHTML = '<p class="text-gray-500">Cart is empty.</p>';
+      cartItemsDiv.innerHTML = '<p class="text-gray-500 text-sm">Your cart is empty.</p>';
       return;
     }
-    cart.forEach((item, idx) => {
-      const div = document.createElement('div');
-      div.className = 'flex justify-between items-center';
+    cart.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.className = "cart-item";
       div.innerHTML = `
-        <p>${item.name} - ${item.quantity}g = ₹${item.price.toFixed(2)}</p>
-        <button onclick="removeItem(${idx})" class="text-red-500 text-xs">Remove</button>
+        <div>
+          <p><strong>${item.name}</strong></p>
+          <p>${item.quantity}g - ₹${item.price}</p>
+        </div>
+        <button onclick="removeItem(${index})" class="text-red-500 text-xs">Remove</button>
       `;
-      container.appendChild(div);
+      cartItemsDiv.appendChild(div);
     });
   }
 
-  function removeItem(i) {
-    cart.splice(i, 1);
-    localStorage.setItem('majeeoCart', JSON.stringify(cart));
-    updateInlineCart();
-  }
-
-  function showTab(tab) {
-    document.getElementById('content-desc').classList.toggle('hidden', tab !== 'desc');
-    document.getElementById('content-benefits').classList.toggle('hidden', tab !== 'benefits');
-    document.getElementById('tab-desc').classList.toggle('tab-active', tab === 'desc');
-    document.getElementById('tab-benefits').classList.toggle('tab-active', tab === 'benefits');
-  }
-
-  function updatePrice() {
-    const grams = parseInt(document.getElementById('quantity').value);
-    const price = (1000 / 1000) * grams;
-    document.getElementById('price').innerText = price.toFixed(0);
-  }
-
   function addToCart() {
-    const grams = parseInt(document.getElementById('quantity').value);
-    const price = (1000 / 1000) * grams;
-    cart.push({ name: 'Premium Almonds', quantity: grams, price });
-    localStorage.setItem('majeeoCart', JSON.stringify(cart));
-    document.getElementById('added-count').innerText = `Added ${grams}g to cart`;
-    updateInlineCart();
+    const grams = parseInt(quantitySelect.value);
+    const price = grams;
+    const name = "Premium Almonds (Badam)";
+
+    // Check if product already exists in cart
+    const existing = cart.find(item => item.name === name && item.quantity === grams);
+    if (!existing) {
+      cart.push({ name, quantity: grams, price });
+    } else {
+      existing.price += price;
+      existing.quantity += grams;
+    }
+
+    localStorage.setItem("majeeo-cart", JSON.stringify(cart));
+    renderMiniCart();
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("majeeo-cart", JSON.stringify(cart));
+    renderMiniCart();
   }
 
   function buyNow() {
-    const grams = parseInt(document.getElementById('quantity').value);
-    const amount = (1000 / 1000) * grams * 100;
-    new Razorpay({
-      key: 'rzp_live_LIqOpioBHDIhG4',
-      amount: Math.round(amount),
-      currency: 'INR',
-      name: 'MajeeoNuts',
-      description: 'Premium Almonds Purchase',
-      handler(response) {
-        alert('Payment successful! ID: ' + response.razorpay_payment_id);
-      }
-    }).open();
+    const grams = parseInt(quantitySelect.value);
+    const price = grams;
+    const total = price;
+    const options = {
+      key: "rzp_live_LIqOpioBHDIhG4",
+      amount: total * 100,
+      currency: "INR",
+      name: "MajeeoNuts",
+      description: "Premium Almonds Purchase",
+      handler: function (response) {
+        alert("Payment successful! ID: " + response.razorpay_payment_id);
+      },
+      prefill: { email: "maheshgawade7799@gmail.com" },
+      theme: { color: "#b91c1c" }
+    };
+    new Razorpay(options).open();
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    showTab('desc');
-    updatePrice();
-    updateInlineCart();
-  });
+  quantitySelect.addEventListener("change", updatePriceDisplay);
+  updatePriceDisplay();
+  renderMiniCart();
 </script>
 
 </body>
 </html>
+
 
