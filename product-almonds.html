@@ -6,6 +6,7 @@
   <title>Premium Almonds (Badam) - MajeeoNuts</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     body { font-family: 'Poppins', sans-serif; }
   </style>
@@ -25,42 +26,38 @@
 <!-- Product Detail Section -->
 <section class="max-w-6xl mx-auto p-4 mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
   <!-- Image & Basic Info -->
-  <div>
+  <div class="text-center">
     <img src="images/almonds.webp" alt="Premium Almonds (Badam)" class="rounded shadow mb-4 w-full max-w-xs aspect-square object-cover mx-auto"/>
-    <h2 class="text-xl font-bold mb-1 text-center">Premium Almonds (Badam)</h2>
-    <p class="text-center text-gray-600">100 gram</p>
-    <p class="text-center text-red-700 font-bold text-lg mb-4">₹124.00</p>
+    <h2 class="text-xl font-bold mb-1">Premium Almonds (Badam)</h2>
+    <select id="quantity" class="p-1 border rounded text-sm mb-2">
+      <option value="250">250g - ₹250</option>
+      <option value="500">500g - ₹500</option>
+      <option value="1000" selected>1kg - ₹1000</option>
+    </select>
+    <p class="text-red-700 font-bold text-lg mb-2">₹<span id="price">1000</span></p>
+    <p class="text-sm text-gray-500" id="cart-status"></p>
   </div>
 
   <!-- Product Details -->
   <div class="text-sm space-y-3">
-    <p><strong>Swift Delivery:</strong> Shipping Across India. Bringing the goodness of dry fruits to your doorstep, no matter where you are! (Chat with us)</p>
+    <p><strong>Swift Delivery:</strong> Shipping Across India. Bringing the goodness of dry fruits to your doorstep, no matter where you are!</p>
     <ul class="list-disc ml-6 text-gray-700">
       <li>Healthy Heart</li>
       <li>High Nutrition</li>
       <li>Gluten Free</li>
       <li>Cholesterol Free</li>
     </ul>
-
-    <!-- Buttons -->
     <div class="flex flex-col sm:flex-row gap-4 mt-4">
       <button onclick="addToCart()" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800">Add to Cart</button>
       <button onclick="buyNow()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Buy Now</button>
     </div>
-
     <p class="mt-2 text-gray-600">SKU: <strong>DRYF101</strong></p>
 
     <hr class="my-4"/>
-
     <h3 class="font-semibold text-base">Description</h3>
-    <p class="text-gray-700 leading-relaxed">
-      Jumbo Almonds are rich in qualities and benefits. They help in reducing hunger and lower calorie intake. These almonds are also used to extract oil and milk. Jumbo Almonds are long in nature and have a touch of extra sweetness.
-    </p>
-
+    <p class="text-gray-700">Jumbo Almonds are rich in qualities and benefits. They help in reducing hunger and lower calorie intake. These almonds are also used to extract oil and milk. Jumbo Almonds are long in nature and have a touch of extra sweetness.</p>
     <h3 class="font-semibold text-base mt-4">Benefits</h3>
-    <p class="text-gray-700 leading-relaxed">
-      Almond Jumbo is a premium selection of the finest, largest, and most flavorful almonds. Carefully sourced for rich, nutty flavor and a crunchy texture, they're ideal for health-conscious individuals. Enjoy them as a snack, in meals, or desserts. They offer natural nutrition, a luxurious snacking experience, and are perfect for a healthy lifestyle.
-    </p>
+    <p class="text-gray-700">Almond Jumbo is a premium selection of the finest, largest, and most flavorful almonds. They provide a rich, nutty flavor and a crunchy texture, perfect for snacking or culinary use.</p>
   </div>
 </section>
 
@@ -102,16 +99,49 @@
   </div>
 </footer>
 
-<!-- Cart + Buy scripts -->
 <script>
+  let cart = JSON.parse(localStorage.getItem("majeeoCart")) || [];
+
+  const quantitySelect = document.getElementById("quantity");
+  const priceDisplay = document.getElementById("price");
+  const cartStatus = document.getElementById("cart-status");
+
+  quantitySelect.addEventListener("change", () => {
+    const grams = parseInt(quantitySelect.value);
+    priceDisplay.innerText = grams; // 1g = ₹1 (as per homepage)
+  });
+
   function addToCart() {
-    alert("Premium Almonds (Badam) added to cart.");
+    const grams = parseInt(quantitySelect.value);
+    const price = grams;
+    const product = {
+      name: "Premium Almonds (Badam)",
+      grams,
+      price
+    };
+    cart.push(product);
+    localStorage.setItem("majeeoCart", JSON.stringify(cart));
+    cartStatus.innerText = `${grams}g added to cart.`;
   }
 
   function buyNow() {
-    alert("Redirecting to payment gateway...");
-    // Replace below with Razorpay or payment integration
-    // window.location.href = "checkout.html";
+    const grams = parseInt(quantitySelect.value);
+    const price = grams;
+    const total = price;
+    const options = {
+      key: "rzp_live_LIqOpioBHDIhG4",
+      amount: total * 100,
+      currency: "INR",
+      name: "MajeeoNuts",
+      description: "Premium Almonds Purchase",
+      handler: function (response) {
+        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+      },
+      prefill: { email: "maheshgawade7799@gmail.com" },
+      theme: { color: "#b91c1c" }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
   }
 </script>
 
