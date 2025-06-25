@@ -3,21 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Premium Almonds (Badam) - MajeeoNuts</title>
+  <title>Premium Almonds - MajeeoNuts</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     body { font-family: 'Poppins', sans-serif; }
-    .tab-active {
-      border-bottom: 2px solid #991b1b; /* red-800 */
-      color: #991b1b;
-    }
+    .tab-active { border-bottom: 2px solid #991b1b; color: #991b1b; }
   </style>
 </head>
 <body class="bg-yellow-50 text-gray-800 text-sm">
 
-<!-- Header -->
 <header class="bg-red-800 text-white py-3 px-6 flex items-center justify-between shadow">
   <h1 class="text-xl font-bold">MajeeoNuts</h1>
   <nav class="space-x-4 text-sm">
@@ -27,165 +22,175 @@
   </nav>
 </header>
 
-<!-- Product Section -->
-<section class="max-w-6xl mx-auto p-4 mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-  <!-- Product Images -->
+<!-- Floating button -->
+<a href="cart.html" class="fixed top-4 right-4 bg-red-700 text-white px-3 py-2 rounded-full shadow-lg hover:bg-red-600 z-50 text-sm">
+  🛒 Go to Cart
+</a>
+
+<section class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-4 mt-6">
   <div>
-    <img src="images/almonds.webp" alt="Premium Almonds" class="w-full max-w-sm mx-auto rounded shadow aspect-square object-cover"/>
-    <div class="flex justify-center gap-2 mt-3">
-      <img src="images/almonds.webp" class="w-12 h-12 border rounded" />
-      <img src="images/almonds.webp" class="w-12 h-12 border rounded" />
-      <img src="images/almonds.webp" class="w-12 h-12 border rounded" />
-    </div>
+    <img src="images/almonds.webp" alt="Premium Almonds" class="w-full aspect-square object-cover rounded shadow"/>
   </div>
 
-  <!-- Product Info -->
   <div>
-    <h2 class="text-2xl font-semibold">Premium Jumbo Almond</h2>
-    <select id="quantity" class="mt-2 mb-1 p-1 border rounded text-sm">
-      <option value="100">100 gram</option>
-      <option value="250">250 gram</option>
-      <option value="500">500 gram</option>
-      <option value="1000" selected>1 kg</option>
-    </select>
-    <p class="text-red-700 font-bold text-xl mb-3">₹<span id="price">1000</span></p>
-
-    <p class="text-sm text-gray-700 mb-2"><strong>Swift Delivery</strong> - Shipping Across India. Bringing the goodness of dry fruits to your doorstep, no matter where you are!</p>
-
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs mb-4">
-      <div>
-        <img src="icons/heart.png" class="w-8 h-8 mx-auto" />
-        <p>Healthy Heart</p>
-      </div>
-      <div>
-        <img src="icons/nutrition.png" class="w-8 h-8 mx-auto" />
-        <p>High Nutrition</p>
-      </div>
-      <div>
-        <img src="icons/glutenfree.png" class="w-8 h-8 mx-auto" />
-        <p>Gluten Free</p>
-      </div>
-      <div>
-        <img src="icons/cholesterol.png" class="w-8 h-8 mx-auto" />
-        <p>Cholesterol Free</p>
-      </div>
+    <h2 class="text-2xl font-semibold mb-2">Premium Jumbo Almond</h2>
+    <div class="flex items-center mb-3">
+      <select id="quantity" class="p-2 border rounded text-sm">
+        <option value="100">100g</option>
+        <option value="250">250g</option>
+        <option value="500">500g</option>
+        <option value="1000" selected>1kg</option>
+      </select>
+      <p class="text-red-700 font-bold text-xl ml-4">₹<span id="price">1000</span></p>
     </div>
 
-    <div class="flex gap-4">
+    <p class="mb-4 text-sm text-gray-700"><strong>Swift Delivery</strong> – Shipping across India right to your doorstep!</p>
+
+    <div class="grid grid-cols-4 gap-4 text-center mb-4 text-xs">
+      <div><img src="icons/heart.png" class="w-6 h-6 mx-auto"/><p>Healthy Heart</p></div>
+      <div><img src="icons/nutrition.png" class="w-6 h-6 mx-auto"/><p>High Nutrition</p></div>
+      <div><img src="icons/glutenfree.png" class="w-6 h-6 mx-auto"/><p>Gluten Free</p></div>
+      <div><img src="icons/cholesterol.png" class="w-6 h-6 mx-auto"/><p>Cholesterol Free</p></div>
+    </div>
+
+    <div class="flex gap-4 mb-4">
       <button onclick="addToCart()" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800">Add to Cart</button>
+      <button onclick="buyNow()" class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800">Buy Now</button>
     </div>
-    <p id="cart-status" class="text-green-700 mt-2 text-sm"></p>
+    <p id="added-count" class="text-green-700 mb-2"></p>
 
-    <p class="mt-4 text-gray-700">SKU: <strong>DRYF101</strong></p>
-    <p class="text-gray-700 mt-2"><strong>Description:</strong><br>
-    Jumbo Almonds are rich in Qualities and benefits, Jumbo almonds help in reducing the Hunger and reduce the intake of calories. These Almonds can be used to Extract oil and Milk. Jumbo Almonds are long in nature and Extra bit in sweetness.
-    </p>
+    <p class="text-gray-600 text-xs">SKU: <strong>DRYF101</strong></p>
+  </div>
+
+  <!-- Cart & Checkout Panel -->
+  <div class="md:col-span-2 mt-6 bg-white rounded shadow p-4">
+    <h3 class="font-semibold mb-2">Your Cart</h3>
+    <div id="cart-items" class="space-y-2 text-sm">
+      <p class="text-gray-500">Your cart is empty.</p>
+    </div>
+    <div class="mt-4" id="checkout-panel" style="display:none">
+      <p class="font-medium mb-1" id="total-items"></p>
+      <p class="font-semibold text-lg mb-2" id="total-price"></p>
+      <button onclick="checkout()" class="w-full bg-red-700 text-white py-2 rounded hover:bg-red-800">Proceed to Payment</button>
+    </div>
   </div>
 </section>
 
-<!-- Tabs -->
-<section class="max-w-6xl mx-auto mt-8 px-4">
-  <div class="flex gap-6 text-sm border-b">
-    <button onclick="showTab('desc')" id="tab-desc" class="pb-2 tab-active">Description</button>
-    <button onclick="showTab('benefits')" id="tab-benefits" class="pb-2">Benefits</button>
+<section class="max-w-6xl mx-auto px-4">
+  <div class="flex gap-6 border-b text-sm font-medium">
+    <button id="tab-desc" class="pb-2 tab-active" onclick="showTab('desc')">Description</button>
+    <button id="tab-benefits" class="pb-2" onclick="showTab('benefits')">Benefits</button>
   </div>
-
-  <div id="content-desc" class="mt-4">
-    <h3 class="text-base font-semibold mb-1">Premium Jumbo Almond</h3>
-    <p>Almond Jumbo is a premium selection of the finest, largest, and most flavorful almonds, carefully sourced to deliver an unparalleled snacking experience.</p>
-    <p class="mt-2">These jumbo-sized almonds boast a rich, nutty flavor and a delightfully crunchy texture that sets them apart from ordinary almonds.</p>
-    <p class="mt-2">They make a versatile addition to your diet—perfect for snacks, meals, baking, or even a post-workout boost.</p>
+  <div id="content-desc" class="mt-4 text-gray-700">
+    <p>Jumbo Almonds are rich in qualities and benefits, help reduce hunger, and are used for oil & milk. Long and sweet!</p>
   </div>
-
-  <div id="content-benefits" class="mt-4 hidden">
+  <div id="content-benefits" class="mt-4 text-gray-700 hidden">
     <ul class="list-disc ml-5 space-y-2">
-      <li>Rich in Vitamin E and healthy fats to promote glowing skin and strong hair.</li>
-      <li>Supports heart health and reduces bad cholesterol levels.</li>
-      <li>Boosts brain function and energy levels naturally.</li>
-      <li>Great for weight management due to high satiety and fiber content.</li>
+      <li>Packed with Vitamin E & healthy fats for skin & hair.</li>
+      <li>Supports heart health & lowers bad cholesterol.</li>
+      <li>Boosts brain function and energy.</li>
+      <li>High satiety helps with weight management.</li>
     </ul>
   </div>
 </section>
 
-<!-- Footer -->
 <footer class="bg-white border-t mt-12 text-xs">
   <div class="bg-gray-100 py-6 px-4 sm:px-6 lg:px-16">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div>
-        <img src="/logo.png" alt="Majeeo Nuts Logo" class="w-20 mb-2">
-        <p class="text-gray-600">Majeeo Nuts brings you carefully selected dry fruits from India and across the world.</p>
-      </div>
-      <div>
-        <h4 class="font-semibold text-gray-800 mb-1">Quick Links</h4>
-        <ul class="text-gray-600 space-y-1">
-          <li><a href="about.html" class="hover:underline">About Us</a></li>
-          <li><a href="contact.html" class="hover:underline">Contact Us</a></li>
-          <li><a href="bulk-order.html" class="hover:underline">Bulk Ordering</a></li>
-          <li><a href="shop.html" class="hover:underline">Shopping</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-semibold text-gray-800 mb-1">Account Info</h4>
-        <ul class="text-gray-600 space-y-1">
-          <li><a href="account.html" class="hover:underline">My Account</a></li>
-          <li><a href="privacy.html" class="hover:underline">Privacy Policy</a></li>
-          <li><a href="return.html" class="hover:underline">Return Policy</a></li>
-          <li><a href="terms.html" class="hover:underline">Terms & Conditions</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-semibold text-gray-800 mb-1">Contact Details</h4>
-        <ul class="text-gray-600 space-y-1">
-          <li>📍 Mumbai, India</li>
-          <li>✉️ maheshgawade7799@gmail.com</li>
-          <li>📞 +91-7483600212</li>
-        </ul>
-      </div>
+      <div><img src="/logo.png" alt="Logo" class="w-20 mb-2"><p class="text-gray-600">Majeeo Nuts brings quality dry fruits worldwide.</p></div>
+      <div><h4 class="font-semibold mb-1">Quick Links</h4><ul class="text-gray-600 space-y-1"><li><a href="about.html" class="hover:underline">About Us</a></li><li><a href="contact.html" class="hover:underline">Contact Us</a></li><li><a href="bulk-order.html" class="hover:underline">Bulk Ordering</a></li><li><a href="shop.html" class="hover:underline">Shopping</a></li></ul></div>
+      <div><h4 class="font-semibold mb-1">Account Info</h4><ul class="text-gray-600 space-y-1"><li><a href="account.html" class="hover:underline">My Account</a></li><li><a href="privacy.html" class="hover:underline">Privacy Policy</a></li><li><a href="return.html" class="hover:underline">Return Policy</a></li><li><a href="terms.html" class="hover:underline">Terms & Conditions</a></li></ul></div>
+      <div><h4 class="font-semibold mb-1">Contact Details</h4><ul class="text-gray-600 space-y-1"><li>📍 Mumbai, India</li><li>✉️ maheshgawade7799@gmail.com</li><li>📞 +91-7483600212</li></ul></div>
     </div>
   </div>
 </footer>
 
-<!-- Scripts -->
 <script>
-  let cart = JSON.parse(localStorage.getItem("majeeoCart")) || [];
+  let cart = JSON.parse(localStorage.getItem('majeeoCart')) || [];
 
-  const quantitySelect = document.getElementById("quantity");
-  const priceDisplay = document.getElementById("price");
-  const cartStatus = document.getElementById("cart-status");
-
-  function updatePrice() {
-    const grams = parseInt(quantitySelect.value);
-    const ratePerKg = 1000; // ₹1000 per 1kg
-    const price = (ratePerKg / 1000) * grams;
-    priceDisplay.innerText = price.toFixed(0);
+  function updateCartUI() {
+    const container = document.getElementById('cart-items');
+    container.innerHTML = '';
+    if (cart.length === 0) {
+      container.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
+      document.getElementById('checkout-panel').style.display = 'none';
+      return;
+    }
+    let totalPrice = 0;
+    cart.forEach((item, idx) => {
+      totalPrice += item.price;
+      const div = document.createElement('div');
+      div.className = 'flex justify-between items-center';
+      div.innerHTML = `
+        <p>${item.name}: ${item.quantity}g — ₹${item.price.toFixed(2)}</p>
+        <button onclick="removeItem(${idx})" class="text-red-500 text-xs">Remove</button>`;
+      container.appendChild(div);
+    });
+    document.getElementById('total-items').innerText = `Items: ${cart.length}`;
+    document.getElementById('total-price').innerText = `Total: ₹${totalPrice.toFixed(2)}`;
+    document.getElementById('checkout-panel').style.display = 'block';
   }
 
-  quantitySelect.addEventListener("change", updatePrice);
-  updatePrice();
+  function removeItem(i) {
+    cart.splice(i, 1);
+    localStorage.setItem('majeeoCart', JSON.stringify(cart));
+    updateCartUI();
+  }
 
   function addToCart() {
-    const grams = parseInt(quantitySelect.value);
+    const grams = parseInt(document.getElementById('quantity').value);
     const price = (1000 / 1000) * grams;
-    const product = {
-      name: "Premium Almonds (Badam)",
-      price,
-      quantity: grams
-    };
-    cart.push(product);
-    localStorage.setItem("majeeoCart", JSON.stringify(cart));
-    cartStatus.innerText = `${grams}g added to cart successfully.`;
+    cart.push({ name: 'Premium Almonds', quantity: grams, price });
+    localStorage.setItem('majeeoCart', JSON.stringify(cart));
+    document.getElementById('added-count').innerText = `Added ${grams}g to cart`;
+    updateCartUI();
+  }
+
+  function buyNow() {
+    const grams = parseInt(document.getElementById('quantity').value);
+    const amount = (1000 / 1000) * grams * 100;
+    new Razorpay({
+      key: 'rzp_live_LIqOpioBHDIhG4',
+      amount,
+      currency: 'INR',
+      name: 'MajeeoNuts',
+      description: 'Premium Almonds Purchase',
+      handler(response) { alert('Payment successful! ID: ' + response.razorpay_payment_id); },
+      prefill: { email: 'maheshgawade7799@gmail.com' },
+      theme: { color: '#991b1b' }
+    }).open();
+  }
+
+  function checkout() {
+    const total = cart.reduce((s,i) => s + i.price, 0) * 100;
+    new Razorpay({
+      key: 'rzp_live_LIqOpioBHDIhG4',
+      amount: Math.round(total),
+      currency: 'INR',
+      name: 'MajeeoNuts',
+      description: 'Cart Checkout',
+      handler(response) {
+        alert('Payment successful! ID: ' + response.razorpay_payment_id);
+        cart = [];
+        localStorage.removeItem('majeeoCart');
+        updateCartUI();
+      },
+      prefill: { email: 'maheshgawade7799@gmail.com' },
+      theme: { color: '#991b1b' }
+    }).open();
   }
 
   function showTab(tab) {
-    document.getElementById("content-desc").classList.add("hidden");
-    document.getElementById("content-benefits").classList.add("hidden");
-    document.getElementById("tab-desc").classList.remove("tab-active");
-    document.getElementById("tab-benefits").classList.remove("tab-active");
-
-    document.getElementById("content-" + tab).classList.remove("hidden");
-    document.getElementById("tab-" + tab).classList.add("tab-active");
+    document.getElementById('content-desc').classList.toggle('hidden', tab !== 'desc');
+    document.getElementById('content-benefits').classList.toggle('hidden', tab !== 'benefits');
+    document.getElementById('tab-desc').classList.toggle('tab-active', tab === 'desc');
+    document.getElementById('tab-benefits').classList.toggle('tab-active', tab === 'benefits');
   }
-</script>
 
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCartUI();
+    showTab('desc');
+  });
+</script>
 </body>
 </html>
