@@ -6,6 +6,7 @@
   <title>Premium Almonds (Badam) - MajeeoNuts</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Poppins', sans-serif; background-color: #fffef8; }
     .cart-item { @apply flex justify-between items-center border p-2 rounded text-xs bg-white shadow-sm; }
@@ -23,7 +24,9 @@
     <a href="about.html" class="hover:underline">About Us</a>
     <a href="contact.html" class="hover:underline">Contact Us</a>
   </nav>
-  <a href="cart.html" class="text-sm bg-white text-red-700 px-3 py-1 rounded-full font-semibold hover:bg-yellow-100">🛒 Go to Cart</a>
+  <a href="cart.html" class="text-sm bg-white text-red-700 px-3 py-1 rounded-full font-semibold hover:bg-yellow-100 flex items-center">
+    🛒 Cart <span id="cart-count" class="ml-1 bg-red-700 text-white px-2 py-[1px] rounded-full text-[10px] font-bold"></span>
+  </a>
 </header>
 
 <!-- Product Section -->
@@ -114,6 +117,12 @@
     priceDisplay.innerText = quantitySelect.value;
   }
 
+  function updateCartBadge() {
+    const badge = document.getElementById("cart-count");
+    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+    badge.textContent = total ? `${total}g` : '';
+  }
+
   function renderMiniCart() {
     cartItemsDiv.innerHTML = "";
     if (cart.length === 0) {
@@ -139,7 +148,6 @@
     const price = grams;
     const name = "Premium Almonds (Badam)";
 
-    // Check if product already exists in cart
     const existing = cart.find(item => item.name === name && item.quantity === grams);
     if (!existing) {
       cart.push({ name, quantity: grams, price });
@@ -150,12 +158,14 @@
 
     localStorage.setItem("majeeo-cart", JSON.stringify(cart));
     renderMiniCart();
+    updateCartBadge();
   }
 
   function removeItem(index) {
     cart.splice(index, 1);
     localStorage.setItem("majeeo-cart", JSON.stringify(cart));
     renderMiniCart();
+    updateCartBadge();
   }
 
   function buyNow() {
@@ -180,6 +190,7 @@
   quantitySelect.addEventListener("change", updatePriceDisplay);
   updatePriceDisplay();
   renderMiniCart();
+  updateCartBadge();
 </script>
 
 </body>

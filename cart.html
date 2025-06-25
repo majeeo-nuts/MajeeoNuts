@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Cart - MajeeoNuts</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
-    body { font-family: sans-serif; }
+    body { font-family: 'Poppins', sans-serif; }
   </style>
 </head>
 <body class="bg-yellow-50 text-gray-900 text-sm">
@@ -14,7 +15,9 @@
   <!-- Header -->
   <header class="bg-red-800 text-white py-3 px-6 flex justify-between items-center">
     <h1 class="text-xl font-bold">MajeeoNuts</h1>
-    <a href="home.html" class="text-sm underline hover:text-yellow-300">← Back to Home</a>
+    <a href="home.html" class="text-sm bg-white text-red-700 px-3 py-1 rounded-full font-semibold hover:bg-yellow-100 flex items-center">
+      🛒 Go to Cart&nbsp;<span id="cart-count" class="ml-1 bg-red-600 text-white px-2 rounded-full text-[10px] font-bold"></span>
+    </a>
   </header>
 
   <!-- Cart Section -->
@@ -30,10 +33,46 @@
     </div>
   </main>
 
-  <!-- Razorpay Script -->
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-12 text-xs">
+    <div class="bg-gray-100 py-6 px-4 sm:px-6 lg:px-16">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div>
+          <img src="/logo.png" alt="Majeeo Nuts Logo" class="w-20 mb-2">
+          <p class="text-gray-600">Majeeo Nuts brings you premium dry fruits from across India and the world.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-1">Quick Links</h4>
+          <ul class="text-gray-600 space-y-1">
+            <li><a href="about.html" class="hover:text-red-600">About Us</a></li>
+            <li><a href="contact.html" class="hover:text-red-600">Contact Us</a></li>
+            <li><a href="bulk-order.html" class="hover:text-red-600">Bulk Ordering</a></li>
+            <li><a href="shop.html" class="hover:text-red-600">Shop</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-1">Account Info</h4>
+          <ul class="text-gray-600 space-y-1">
+            <li><a href="account.html" class="hover:text-red-600">My Account</a></li>
+            <li><a href="privacy.html" class="hover:text-red-600">Privacy Policy</a></li>
+            <li><a href="return.html" class="hover:text-red-600">Return Policy</a></li>
+            <li><a href="terms.html" class="hover:text-red-600">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-1">Contact</h4>
+          <ul class="text-gray-600 space-y-1">
+            <li>📍 Mumbai, India</li>
+            <li>✉️ maheshgawade7799@gmail.com</li>
+            <li>📞 +91-7483600212</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    const cartKey = "cart";
+    const cartKey = "majeeo-cart";
     const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
     const cartDiv = document.getElementById("cart-items");
@@ -41,6 +80,12 @@
     const totalItemsText = document.getElementById("total-items");
     const totalPriceText = document.getElementById("total-price");
     const checkoutBtn = document.getElementById("checkout-btn");
+    const badge = document.getElementById("cart-count");
+
+    function updateCartCount() {
+      const totalQty = cart.reduce((sum, it) => sum + it.grams, 0);
+      badge.textContent = totalQty ? totalQty + 'g' : '';
+    }
 
     function renderCart() {
       cartDiv.innerHTML = "";
@@ -55,7 +100,7 @@
 
       cart.forEach((item, index) => {
         totalPrice += item.price;
-        totalQuantity += 1;
+        totalQuantity += item.grams;
 
         const div = document.createElement("div");
         div.className = "flex justify-between items-center border p-3 rounded";
@@ -69,9 +114,8 @@
         cartDiv.appendChild(div);
       });
 
-      // Show total summary
       summaryDiv.classList.remove("hidden");
-      totalItemsText.textContent = `Total Items: ${totalQuantity}`;
+      totalItemsText.textContent = `Total Quantity: ${totalQuantity}g`;
       totalPriceText.textContent = `Total Amount: ₹${totalPrice.toFixed(2)}`;
     }
 
@@ -79,6 +123,7 @@
       cart.splice(index, 1);
       localStorage.setItem(cartKey, JSON.stringify(cart));
       renderCart();
+      updateCartCount();
     }
 
     checkoutBtn.addEventListener("click", () => {
@@ -88,25 +133,22 @@
         amount: Math.round(totalAmount * 100),
         currency: "INR",
         name: "MajeeoNuts",
-        description: "Premium Dry Fruits Purchase",
+        description: "Dry Fruits Purchase",
         handler: function (response) {
           alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
           localStorage.removeItem(cartKey);
-          location.reload(); // Clear and refresh cart page
+          location.reload();
         },
-        prefill: {
-          email: "maheshgawade7799@gmail.com"
-        },
-        theme: {
-          color: "#b91c1c"
-        }
+        prefill: { email: "maheshgawade7799@gmail.com" },
+        theme: { color: "#b91c1c" }
       };
       new Razorpay(options).open();
     });
 
     renderCart();
+    updateCartCount();
   </script>
+
 </body>
 </html>
-
 
