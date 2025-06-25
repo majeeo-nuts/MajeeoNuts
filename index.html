@@ -35,10 +35,12 @@
 <header class="bg-red-800 text-white py-3 px-4 flex items-center justify-between shadow-md">
   <h1 class="text-xl font-bold">MajeeoNuts</h1>
   <nav class="space-x-4">
-    <a href="home.html" class="hover:underline">Home</a>
-    <a href="about.html" class="hover:underline">About Us</a>
-    <a href="contact.html" class="hover:underline">Contact Us</a>
-  </nav>
+  <a href="home.html" class="hover:underline">Home</a>
+  <a href="about.html" class="hover:underline">About Us</a>
+  <a href="contact.html" class="hover:underline">Contact Us</a>
+  <!-- Add this new line -->
+  <a href="cart.html" class="hover:underline">Cart</a>
+</nav>
   <input type="text" id="searchInput" placeholder="Search..." class="ml-4 px-2 py-1 rounded border text-gray-900 border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-600 text-xs w-32" />
 </header>
 
@@ -278,6 +280,8 @@
     });
   });
 </script>
-
+<a href="cart.html" class="fixed bottom-5 right-5 bg-red-700 text-white px-4 py-2 rounded-full shadow-lg text-sm hover:bg-red-600 z-50">
+  🛒 Go to Cart
+</a>
 </body>
 </html>
