@@ -135,29 +135,19 @@
     });
   }
 
-  function renderCart() {
-    const c = getCart();
-    cartItemsDiv.innerHTML = c.length ? c.map((item, i) => `
-      <div class="border p-2 rounded flex justify-between items-center">
-        <div><p class="font-semibold">${item.name}</p><p>${item.grams}g – ₹${item.price.toFixed(2)}</p></div>
-        <button onclick="removeItem(${i})" class="text-red-600 text-xs">Remove</button>
-      </div>`).join('') : '<p class="text-gray-500">Your cart is empty.</p>';
-    checkoutBtn.disabled = c.length === 0;
-    updateCartCount();
-  }
-
-  function updateCartCount() {
-    const c = getCart();
-    const qty = c.reduce((sum, item) => sum + item.grams, 0);
-    badge.textContent = qty ? qty + 'g' : '';
-  }
-
-  function removeItem(i) {
-    const c = getCart();
-    c.splice(i, 1);
-    saveCart(c);
-    renderCart();
-  }
+ function renderCart() {
+  const c = getCart();
+  cartItemsDiv.innerHTML = c.length ? c.map((item, i) => `
+    <div class="border p-2 rounded flex justify-between items-center">
+      <div>
+        <p class="font-semibold">${item.name}</p>
+        <p>${item.count || 1} × ${item.grams}g – ₹${item.price.toFixed(2)}</p>
+      </div>
+      <button onclick="removeItem(${i})" class="text-red-600 text-xs">Remove</button>
+    </div>`).join('') : '<p class="text-gray-500">Your cart is empty.</p>';
+  checkoutBtn.disabled = c.length === 0;
+  updateCartCount();
+}
 
   document.addEventListener('click', e => {
     if (e.target.classList.contains('add-to-cart')) {
@@ -170,10 +160,10 @@
       const cart = getCart();
 const existingItem = cart.find(item => item.name === name && item.grams === grams);
 if (existingItem) {
+  existingItem.count = (existingItem.count || 1) + 1;
   existingItem.price += price;
-  existingItem.grams += grams;
 } else {
-  cart.push({ name, grams, price });
+  cart.push({ name, grams, price, count: 1 });
 }
       saveCart(cart);
       renderCart();
