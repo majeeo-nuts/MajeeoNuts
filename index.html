@@ -135,66 +135,77 @@
     });
   }
 
-function renderCart() {
-  const c = getCart();
-  cartItemsDiv.innerHTML = c.length
-    ? c.map((item, i) => `
-      <div class="border p-2 rounded flex justify-between items-center">
-        <div>
-          <p class="font-semibold">${item.name}</p>
-          <p>${item.count} × ${item.grams}g – ₹${item.price.toFixed(2)}</p>
-        </div>
-        <div class="flex gap-1">
-          <button onclick="removeOne(${i})" class="text-yellow-600 text-xs border px-2 rounded">−1</button>
-          <button onclick="removeAll(${i})" class="text-red-600 text-xs border px-2 rounded">❌ All</button>
-        </div>
-      </div>`).join('')
-    : '<p class="text-gray-500">Your cart is empty.</p>';
-  checkoutBtn.disabled = c.length === 0;
-  updateCartCount();
-}
-function removeOne(index) {
-  const c = getCart();
-  if (c[index].count > 1) {
-    const perUnitGrams = c[index].grams / c[index].count;
-    const perUnitPrice = c[index].price / c[index].count;
-    c[index].count -= 1;
-    c[index].grams -= perUnitGrams;
-    c[index].price -= perUnitPrice;
-  } else {
-    c.splice(index, 1);
+  function renderCart() {
+    const c = getCart();
+    cartItemsDiv.innerHTML = c.length
+      ? c.map((item, i) => `
+        <div class="border p-2 rounded flex justify-between items-center">
+          <div>
+            <p class="font-semibold">${item.name}</p>
+            <p>${item.count} × ${item.grams / item.count}g – ₹${item.price.toFixed(2)}</p>
+          </div>
+          <div class="flex gap-1">
+            <button onclick="removeOne(${i})" class="text-yellow-600 text-xs border px-2 rounded">−1</button>
+            <button onclick="removeAll(${i})" class="text-red-600 text-xs border px-2 rounded">❌ All</button>
+          </div>
+        </div>`).join('')
+      : '<p class="text-gray-500">Your cart is empty.</p>';
+    checkoutBtn.disabled = c.length === 0;
+    updateCartCount();
   }
-  saveCart(c);
-  renderCart();
-}
 
-function removeAll(index) {
-  const c = getCart();
-  c.splice(index, 1);
-  saveCart(c);
-  renderCart();
-}
+  function removeOne(index) {
+    const c = getCart();
+    const item = c[index];
+    if (item.count > 1) {
+      const perGram = item.grams / item.count;
+      const perPrice = item.price / item.count;
+      item.count--;
+      item.grams -= perGram;
+      item.price -= perPrice;
+    } else {
+      c.splice(index, 1);
+    }
+    saveCart(c);
+    renderCart();
+  }
+
+  function removeAll(index) {
+    const c = getCart();
+    c.splice(index, 1);
+    saveCart(c);
+    renderCart();
+  }
 
   document.addEventListener('click', e => {
     if (e.target.classList.contains('add-to-cart')) {
       const card = e.target.closest('article');
       const grams = parseInt(card.querySelector('select').value);
       const name = e.target.dataset.name;
-      const priceKg = parseFloat(e.target.dataset.price);
-      const price = (priceKg / 1000) * grams;
+      const pricePerKg = parseFloat(e.target.dataset.price);
+      const price = (pricePerKg / 1000) * grams;
 
       const cart = getCart();
-const existingItem = cart.find(item => item.name === name && item.grams === grams);
-if (existingItem) {
-  existingItem.count = (existingItem.count || 1) + 1;
-  existingItem.price += price;
-} else {
-  cart.push({ name, grams, price, count: 1 });
-}
+      const existing = cart.find(i => i.name === name && i.grams / i.count === grams);
+
+      if (existing) {
+        existing.count += 1;
+        existing.grams += grams;
+        existing.price += price;
+      } else {
+        cart.push({ name, grams, price, count: 1 });
+      }
+
       saveCart(cart);
       renderCart();
     }
   });
+
+  function updateCartCount() {
+    const c = getCart();
+    const total = c.reduce((sum, item) => sum + item.grams, 0);
+    badge.textContent = total ? `${total}g` : '';
+  }
 
   checkoutBtn.addEventListener('click', () => {
     const cart = getCart();
@@ -209,6 +220,7 @@ if (existingItem) {
         alert("Payment successful! ID: " + resp.razorpay_payment_id);
         localStorage.removeItem(STORAGE_KEY);
         renderCart();
+        updateCartCount();
       },
       theme: { color: "#b91c1c" }
     }).open();
@@ -221,10 +233,10 @@ if (existingItem) {
     });
   });
 
-  // Initial rendering
   renderProducts();
   renderCart();
 </script>
+
 <div class="text-center mt-4">
   <a href="home.html" class="text-red-700 underline text-sm hover:text-red-900">← Go to Home</a>
 </div>
