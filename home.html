@@ -135,18 +135,44 @@
     });
   }
 
-  function renderCart() {
+function renderCart() {
   const c = getCart();
-  cartItemsDiv.innerHTML = c.length ? c.map((item, i) => `
-    <div class="border p-2 rounded flex justify-between items-center">
-      <div>
-        <p class="font-semibold">${item.name}</p>
-        <p>${item.count || 1} × ${item.grams}g – ₹${item.price.toFixed(2)}</p>
-      </div>
-      <button onclick="removeItem(${i})" class="text-red-600 text-xs">Remove</button>
-    </div>`).join('') : '<p class="text-gray-500">Your cart is empty.</p>';
+  cartItemsDiv.innerHTML = c.length
+    ? c.map((item, i) => `
+      <div class="border p-2 rounded flex justify-between items-center">
+        <div>
+          <p class="font-semibold">${item.name}</p>
+          <p>${item.count} × ${item.grams}g – ₹${item.price.toFixed(2)}</p>
+        </div>
+        <div class="flex gap-1">
+          <button onclick="removeOne(${i})" class="text-yellow-600 text-xs border px-2 rounded">−1</button>
+          <button onclick="removeAll(${i})" class="text-red-600 text-xs border px-2 rounded">❌ All</button>
+        </div>
+      </div>`).join('')
+    : '<p class="text-gray-500">Your cart is empty.</p>';
   checkoutBtn.disabled = c.length === 0;
   updateCartCount();
+}
+function removeOne(index) {
+  const c = getCart();
+  if (c[index].count > 1) {
+    const perUnitGrams = c[index].grams / c[index].count;
+    const perUnitPrice = c[index].price / c[index].count;
+    c[index].count -= 1;
+    c[index].grams -= perUnitGrams;
+    c[index].price -= perUnitPrice;
+  } else {
+    c.splice(index, 1);
+  }
+  saveCart(c);
+  renderCart();
+}
+
+function removeAll(index) {
+  const c = getCart();
+  c.splice(index, 1);
+  saveCart(c);
+  renderCart();
 }
 
   document.addEventListener('click', e => {

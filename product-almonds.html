@@ -20,9 +20,7 @@
     background-color: #ffffff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
-  .cart-item p {
-    margin-bottom: 0;
-  }
+  .cart-item p { margin-bottom: 0; }
   .nav-center { position: absolute; left: 50%; transform: translateX(-50%); }
 </style>
 </head>
@@ -30,9 +28,9 @@
 
 <!-- Header -->
 <header class="bg-red-800 text-white py-3 px-6 relative shadow flex items-center justify-between">
-<h1 class="text-xl font-bold">
-  <a href="home.html" class="hover:underline">MajeeoNuts</a>
-</h1>
+  <h1 class="text-xl font-bold">
+    <a href="home.html" class="hover:underline">MajeeoNuts</a>
+  </h1>
   <nav class="space-x-4 text-sm nav-center">
     <a href="home.html" class="hover:underline">Home</a>
     <a href="about.html" class="hover:underline">About Us</a>
@@ -133,8 +131,8 @@
 
   function updateCartBadge() {
     const badge = document.getElementById("cart-count");
-    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-    badge.textContent = total ? `${total}g` : '';
+    const total = cart.reduce((sum, item) => sum + item.count, 0);
+    badge.textContent = total ? `${total}x` : '';
   }
 
   function renderMiniCart() {
@@ -149,33 +147,51 @@
       div.innerHTML = `
         <div>
           <p><strong>${item.name}</strong></p>
-          <p>${item.quantity}g - ₹${item.price}</p>
+          <p>${item.count} × ${item.grams}g – ₹${item.price.toFixed(2)}</p>
         </div>
-        <button onclick="removeItem(${index})" class="text-red-500 text-xs">Remove</button>
+        <div class="flex gap-1">
+          <button onclick="removeOne(${index})" class="text-yellow-600 text-xs border px-2 rounded">−1</button>
+          <button onclick="removeAll(${index})" class="text-red-600 text-xs border px-2 rounded">❌ All</button>
+        </div>
       `;
       cartItemsDiv.appendChild(div);
     });
   }
 
   function addToCart() {
-  const grams = parseInt(quantitySelect.value);
-  const name = "Premium Almonds (Badam)";
-  const price = grams;
+    const grams = parseInt(quantitySelect.value);
+    const name = "Premium Almonds (Badam)";
+    const pricePerGram = 1;
+    const price = grams * pricePerGram;
 
-  const existing = cart.find(item => item.name === name && item.grams === grams);
-if (existing) {
-  existing.count = (existing.count || 1) + 1;
-  existing.price += price;
-} else {
-  cart.push({ name, grams, price, count: 1 });
-}
+    const existing = cart.find(item => item.name === name && item.grams === grams);
+    if (existing) {
+      existing.count = (existing.count || 1) + 1;
+      existing.price += price;
+    } else {
+      cart.push({ name, grams, price, count: 1 });
+    }
 
-  localStorage.setItem("majeeo-cart", JSON.stringify(cart));
-  renderMiniCart();
-  updateCartBadge();
-}
+    localStorage.setItem("majeeo-cart", JSON.stringify(cart));
+    renderMiniCart();
+    updateCartBadge();
+  }
 
-  function removeItem(index) {
+  function removeOne(index) {
+    const item = cart[index];
+    const unitPrice = item.price / item.count;
+    if (item.count > 1) {
+      item.count -= 1;
+      item.price -= unitPrice;
+    } else {
+      cart.splice(index, 1);
+    }
+    localStorage.setItem("majeeo-cart", JSON.stringify(cart));
+    renderMiniCart();
+    updateCartBadge();
+  }
+
+  function removeAll(index) {
     cart.splice(index, 1);
     localStorage.setItem("majeeo-cart", JSON.stringify(cart));
     renderMiniCart();
@@ -184,8 +200,7 @@ if (existing) {
 
   function buyNow() {
     const grams = parseInt(quantitySelect.value);
-    const price = grams;
-    const total = price;
+    const total = grams;
     const options = {
       key: "rzp_live_LIqOpioBHDIhG4",
       amount: total * 100,
@@ -206,6 +221,7 @@ if (existing) {
   renderMiniCart();
   updateCartBadge();
 </script>
+
 <div class="text-center mt-4">
   <a href="home.html" class="text-red-700 underline text-sm hover:text-red-900">← Go to Home</a>
 </div>

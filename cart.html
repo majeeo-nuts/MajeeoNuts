@@ -73,83 +73,100 @@
     </div>
   </footer>
 
-  <script>
-    const cartKey = "majeeo-cart";
-    const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+ <script>
+  const cartKey = "majeeo-cart";
+  let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
-    const cartDiv = document.getElementById("cart-items");
-    const summaryDiv = document.getElementById("cart-summary");
-    const totalItemsText = document.getElementById("total-items");
-    const totalPriceText = document.getElementById("total-price");
-    const checkoutBtn = document.getElementById("checkout-btn");
-    const badge = document.getElementById("cart-count");
+  const cartDiv = document.getElementById("cart-items");
+  const summaryDiv = document.getElementById("cart-summary");
+  const totalItemsText = document.getElementById("total-items");
+  const totalPriceText = document.getElementById("total-price");
+  const checkoutBtn = document.getElementById("checkout-btn");
+  const badge = document.getElementById("cart-count");
 
-    function updateCartCount() {
-      const totalQty = cart.reduce((sum, it) => sum + it.grams, 0);
-      badge.textContent = totalQty ? totalQty + 'g' : '';
+  function updateCartCount() {
+    const totalCount = cart.reduce((sum, it) => sum + it.count, 0);
+    badge.textContent = totalCount ? `${totalCount}x` : '';
+  }
+
+  function renderCart() {
+    cartDiv.innerHTML = "";
+    if (cart.length === 0) {
+      cartDiv.innerHTML = "<p class='text-gray-500'>Your cart is empty.</p>";
+      summaryDiv.classList.add("hidden");
+      return;
     }
 
-    function renderCart() {
-      cartDiv.innerHTML = "";
-      if (cart.length === 0) {
-        cartDiv.innerHTML = "<p class='text-gray-500'>Your cart is empty.</p>";
-        summaryDiv.classList.add("hidden");
-        return;
-      }
+    let totalPrice = 0;
+    let totalQuantity = 0;
 
-      let totalPrice = 0;
-      let totalQuantity = 0;
+    cart.forEach((item, index) => {
+      totalPrice += item.price;
+      totalQuantity += item.count;
 
-      cart.forEach((item, index) => {
-        totalPrice += item.price;
-        totalQuantity += item.grams;
-
-        const div = document.createElement("div");
-        div.className = "flex justify-between items-center border p-3 rounded";
-        div.innerHTML = `
-          <div>
-            <p class="font-semibold">${item.name}</p>
-            <p class="text-gray-700">${item.grams}g - ₹${item.price.toFixed(2)}</p>
-          </div>
-          <button onclick="removeItem(${index})" class="text-red-500 text-sm">Remove</button>
-        `;
-        cartDiv.appendChild(div);
-      });
-
-      summaryDiv.classList.remove("hidden");
-      totalItemsText.textContent = `Total Quantity: ${totalQuantity}g`;
-      totalPriceText.textContent = `Total Amount: ₹${totalPrice.toFixed(2)}`;
-    }
-
-    function removeItem(index) {
-      cart.splice(index, 1);
-      localStorage.setItem(cartKey, JSON.stringify(cart));
-      renderCart();
-      updateCartCount();
-    }
-
-    checkoutBtn.addEventListener("click", () => {
-      const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
-      const options = {
-        key: "rzp_live_LIqOpioBHDIhG4",
-        amount: Math.round(totalAmount * 100),
-        currency: "INR",
-        name: "MajeeoNuts",
-        description: "Dry Fruits Purchase",
-        handler: function (response) {
-          alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-          localStorage.removeItem(cartKey);
-          location.reload();
-        },
-        prefill: { email: "maheshgawade7799@gmail.com" },
-        theme: { color: "#b91c1c" }
-      };
-      new Razorpay(options).open();
+      const div = document.createElement("div");
+      div.className = "flex justify-between items-center border p-3 rounded";
+      div.innerHTML = `
+        <div>
+          <p class="font-semibold">${item.name}</p>
+          <p class="text-gray-700">${item.count} × ${item.grams}g – ₹${item.price.toFixed(2)}</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="removeOne(${index})" class="text-yellow-700 border px-2 text-xs rounded">−1</button>
+          <button onclick="removeAll(${index})" class="text-red-600 border px-2 text-xs rounded">❌ All</button>
+        </div>
+      `;
+      cartDiv.appendChild(div);
     });
 
+    summaryDiv.classList.remove("hidden");
+    totalItemsText.textContent = `Total Quantity: ${totalQuantity} item(s)`;
+    totalPriceText.textContent = `Total Amount: ₹${totalPrice.toFixed(2)}`;
+  }
+
+  function removeOne(index) {
+    const item = cart[index];
+    const unitPrice = item.price / item.count;
+    if (item.count > 1) {
+      item.count -= 1;
+      item.price -= unitPrice;
+    } else {
+      cart.splice(index, 1);
+    }
+    localStorage.setItem(cartKey, JSON.stringify(cart));
     renderCart();
     updateCartCount();
-  </script>
+  }
+
+  function removeAll(index) {
+    cart.splice(index, 1);
+    localStorage.setItem(cartKey, JSON.stringify(cart));
+    renderCart();
+    updateCartCount();
+  }
+
+  checkoutBtn.addEventListener("click", () => {
+    const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+    const options = {
+      key: "rzp_live_LIqOpioBHDIhG4",
+      amount: Math.round(totalAmount * 100),
+      currency: "INR",
+      name: "MajeeoNuts",
+      description: "Dry Fruits Purchase",
+      handler: function (response) {
+        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+        localStorage.removeItem(cartKey);
+        location.reload();
+      },
+      prefill: { email: "maheshgawade7799@gmail.com" },
+      theme: { color: "#b91c1c" }
+    };
+    new Razorpay(options).open();
+  });
+
+  renderCart();
+  updateCartCount();
+</script>
 <div class="text-center mt-4">
   <a href="home.html" class="text-red-700 underline text-sm hover:text-red-900">← Go to Home</a>
 </div>
