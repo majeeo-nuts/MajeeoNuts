@@ -168,7 +168,13 @@
       const price = (priceKg / 1000) * grams;
 
       const cart = getCart();
-      cart.push({ name, grams, price });
+const existingItem = cart.find(item => item.name === name && item.grams === grams);
+if (existingItem) {
+  existingItem.price += price;
+  existingItem.grams += grams;
+} else {
+  cart.push({ name, grams, price });
+}
       saveCart(cart);
       renderCart();
     }

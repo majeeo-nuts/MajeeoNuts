@@ -158,22 +158,22 @@
   }
 
   function addToCart() {
-    const grams = parseInt(quantitySelect.value);
-    const price = grams;
-    const name = "Premium Almonds (Badam)";
+  const grams = parseInt(quantitySelect.value);
+  const name = "Premium Almonds (Badam)";
+  const price = grams;
 
-    const existing = cart.find(item => item.name === name && item.quantity === grams);
-    if (!existing) {
-      cart.push({ name, quantity: grams, price });
-    } else {
-      existing.price += price;
-      existing.quantity += grams;
-    }
-
-    localStorage.setItem("majeeo-cart", JSON.stringify(cart));
-    renderMiniCart();
-    updateCartBadge();
+  const existing = cart.find(item => item.name === name && item.quantity === grams);
+  if (existing) {
+    existing.quantity += grams;
+    existing.price += price;
+  } else {
+    cart.push({ name, quantity: grams, price });
   }
+
+  localStorage.setItem("majeeo-cart", JSON.stringify(cart));
+  renderMiniCart();
+  updateCartBadge();
+}
 
   function removeItem(index) {
     cart.splice(index, 1);
