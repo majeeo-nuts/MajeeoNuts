@@ -95,16 +95,18 @@
 <!-- JS: Products + Cart Logic -->
 <script>
   const STORAGE_KEY = 'majeeo-cart';
-  const products = [
-    { name:"Premium Almonds (Badam)",  img:"images/almonds.webp", price:1000, desc:"High-quality California almonds.", best:true, link:"product-almonds.html" },
-    { name:"Premium Cashews (Kaju)", img:"images/cashews.avif", price:1200, desc:"Fresh, creamy cashews.", best:true, link:"product-cashews.html" },
-    { name:"Mamra Almonds (Organic)", img:"images/mamra_almonds.webp", price:1600, desc:"Premium organic Mamra almonds.", best:false, link:"product-mamra-almonds.html" },
-    { name:"Pista (Pistachios)", img:"images/Pista.jpg", price:1400, desc:"Crunchy, lightly salted pistachios.", best:false, link:"product-pista.html" },
-    { name:"Walnut (Akhrot)", img:"images/Walnut.png", price:1300, desc:"Brain‑boosting walnuts rich in Omega‑3.", best:false, link:"product-walnut.html" },
-    { name:"Raisins (Kishmish)", img:"images/Raisins.png", price:600, desc:"Sweet, sun‑dried raisins.", best:false, link:"product-raisins.html" },
-    { name:"Mix Dry Fruits", img:"images/Mix_Dryfruits.jpg", price:1500, desc:"Mix of almonds, cashews, pista, raisins & figs.", best:false, link:"product-mix-dryfruits.html" },
-    { name:"Anjeer (Figs)", img:"images/Anjeer.png", price:900, desc:"Naturally sweet sun‑dried figs.", best:false, link:"product-anjeer.html" }
-  ];
+const products = [
+  { name:"Premium Almonds (Badam)",  img:"images/almonds.webp", price:1000, desc:"High-quality California almonds.", best:true, link:"product-almonds.html" },
+  { name:"Premium Cashews (Kaju)", img:"images/cashews.avif", price:1200, desc:"Fresh, creamy cashews.", best:true, link:"product-cashews.html" },
+  { name:"Mamra Almonds (Organic)", img:"images/mamra_almonds.webp", price:1600, desc:"Premium organic Mamra almonds.", best:false, link:"product-mamra-almonds.html" },
+  { name:"Pista (Pistachios)", img:"images/Pista.jpg", price:1400, desc:"Crunchy, lightly salted pistachios.", best:false, link:"product-pista.html" },
+  { name:"Walnut (Akhrot)", img:"images/Walnut.png", price:1300, desc:"Brain‑boosting walnuts rich in Omega‑3.", best:false, link:"product-walnut.html" },
+  { name:"Raisins (Kishmish)", img:"images/Raisins.png", price:600, desc:"Sweet, sun‑dried raisins.", best:false, link:"product-raisins.html" },
+  { name:"Mix Dry Fruits", img:"images/Mix_Dryfruits.jpg", price:1500, desc:"Mix of almonds, cashews, pista, raisins & figs.", best:false, link:"product-mix-dryfruits.html" },
+  { name:"Anjeer (Figs)", img:"images/Anjeer.png", price:900, desc:"Naturally sweet sun‑dried figs.", best:false, link:"product-anjeer.html" },
+  { name:"ABC", img:"images/abc.jpg", price:1, desc:"Sample product at ₹1 only.", best:false, link:"product-abc.html" } // New product added
+];
+
 
   const getCart = () => JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   const saveCart = (c) => localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
